@@ -1,4 +1,4 @@
-package com.example.airlinebookingapp;
+package AirlineApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
