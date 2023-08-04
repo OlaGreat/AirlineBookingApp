@@ -1,16 +1,15 @@
-package AirlineApp.models;
+package AirlineApp.data.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Data
-@Table(name = "passenger")
-public class Passenger {
+@Table(name = "Admin")
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     @OneToOne
     private User user;
 }

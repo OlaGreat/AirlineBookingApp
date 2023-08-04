@@ -1,15 +1,15 @@
-package AirlineApp.models;
+package AirlineApp.data.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Admin")
-public class Admin {
+@Table(name = "passenger")
+public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @OneToOne
     private User user;
 }
