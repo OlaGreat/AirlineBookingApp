@@ -1,4 +1,7 @@
 
+package AirlineApp.data.models;
+
+
 import jakarta.persistence.*;
 import lombok.Data;
 @Entity
@@ -18,7 +21,7 @@ public class Flight {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private com.example.airlinebookingapp.data.models.FlightStatus flightStatus;
+    private FlightStatus flightStatus;
 
     @Column(nullable = false)
     private int flightCapacity;

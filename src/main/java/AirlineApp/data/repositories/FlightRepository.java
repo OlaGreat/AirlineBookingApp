@@ -1,6 +1,6 @@
-package com.example.airlinebookingapp.data.repository;
+package AirlineApp.data.repositories;
 
-import com.example.airlinebookingapp.data.models.Flight;
+import AirlineApp.data.models.Flight;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FlightRepository extends JpaRepository<Flight, Long> {

@@ -1,4 +1,4 @@
-package com.example.airlinebookingapp.data.models;
+package AirlineApp.data.models;
 
 public enum FlightDestination {
     NIGERIA,GHANA,USA,TOGO,MALI,CHINA,JAPAN,MALAYSIA,CANADA,UNITED_KINGDOM,

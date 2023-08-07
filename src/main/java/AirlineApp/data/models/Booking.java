@@ -1,4 +1,4 @@
-package com.example.airlinebookingapp.data.models;
+package AirlineApp.data.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
