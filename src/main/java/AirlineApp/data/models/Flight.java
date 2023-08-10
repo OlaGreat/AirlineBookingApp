@@ -4,6 +4,9 @@ package AirlineApp.data.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+
 @Entity
 @Table(name = "Flight")
 @Data
@@ -19,15 +22,17 @@ public class Flight {
     @Column(nullable = false)
     private String flightNumber;
 
-    @Column(nullable = false)
+
     @Enumerated(EnumType.STRING)
     private FlightStatus flightStatus;
 
     @Column(nullable = false)
     private int flightCapacity;
 
+    @ElementCollection
+    private List<FlightDestination> flightDestinations;
+
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private FlightDestination flightDestination;
+    private String companyName;
 
 }
