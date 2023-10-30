@@ -5,6 +5,8 @@ import AirlineApp.data.models.FlightStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -13,7 +15,7 @@ public class AddFlightRequest {
     private String flightNumber;
     private FlightStatus flightStatus = FlightStatus.IN_CABIN;
     private int flightCapacity;
-    private FlightDestination flightDestinations;
-    private String companyName;
+    private List<FlightDestination> flightDestination;
+
 
 }

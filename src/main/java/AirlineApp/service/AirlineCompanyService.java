@@ -1,22 +1,20 @@
 package AirlineApp.service;
 
 import AirlineApp.data.models.Company;
-import AirlineApp.data.models.Flight;
 import AirlineApp.data.repositories.CompanyRepository;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
+import AirlineApp.dtos.request.FlightRegistrationRequest;
 import AirlineApp.dtos.response.AddFlightResponse;
 import AirlineApp.dtos.response.CompanyRegistrationResponse;
+import AirlineApp.dtos.response.FlightRegistrationResponse;
 import AirlineApp.exceptions.AirlineException;
 import lombok.AllArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 
-import static AirlineApp.data.models.FlightDestination.*;
+import static AirlineApp.exceptions.ExceptionMessages.*;
 
 
 @Service
@@ -24,9 +22,10 @@ import static AirlineApp.data.models.FlightDestination.*;
 public class AirlineCompanyService implements CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final FlightService flightService;
 
     @Override
-    public CompanyRegistrationResponse registerCompany(CompanyRegistrationRequest companyRegistrationRequest) {
+    public CompanyRegistrationResponse registerCompany(CompanyRegistrationRequest companyRegistrationRequest) throws AirlineException {
         verifyCompanyRegistrationRequest(companyRegistrationRequest);
         Company company = new Company();
         BeanUtils.copyProperties(companyRegistrationRequest,company);
@@ -40,27 +39,26 @@ public class AirlineCompanyService implements CompanyService {
     }
 
     @Override
-    public AddFlightResponse addFlight(AddFlightRequest addFlightRequest) throws AirlineException {
-        String companyName = addFlightRequest.getCompanyName();
-        Flight flight = new Flight();
-        flight.setFlightDestinations(List.of(USA,NIGERIA,CANADA));
-        BeanUtils.copyProperties(addFlightRequest, flight);
-        Optional<Company> company = companyRepository.readByCompanyName(companyName);
+    public FlightRegistrationResponse addFlight(AddFlightRequest addFlightRequest, Long id) throws AirlineException {
+        FlightRegistrationRequest flightRegistrationRequest = new FlightRegistrationRequest();
+        BeanUtils.copyProperties(addFlightRequest, flightRegistrationRequest);
 
-        if(company.isPresent()){
-        Company foundCompany = company.get();
-        foundCompany.setFleet(List.of(flight));
-        companyRepository.save(foundCompany);
-        }else throw new AirlineException("Company Does Not Exist Please");
-
-        AddFlightResponse response = new AddFlightResponse();
-        response.setMessage("Flight "+ addFlightRequest.getFlightName() +" Successfully added to "+ addFlightRequest.getCompanyName()
-                + " Fleet");
-        return response;
+        Company company = companyRepository.findById(id)
+//                .ifPresentOrElse(company1 -> company1.getCompanyName().toUpperCase())
+                        .orElseThrow( ()-> new AirlineException(COMPANY_NOT_FOUND.getMessage()));
+        FlightRegistrationResponse flightRegistrationResponse = flightService.registerFlight(flightRegistrationRequest, company);
+        return flightRegistrationResponse;
     }
 
-    private static void verifyCompanyRegistrationRequest(CompanyRegistrationRequest companyRegistrationRequest) {
-        if(companyRegistrationRequest.getCompanyName() == null)throw new IllegalArgumentException("Please provide a your company name");
-        if (companyRegistrationRequest.getCompanyLicencesNumber() == null) throw new IllegalArgumentException("Please Provide  your Company Licence Number");
+    @Override
+    public Company findById(Long id) throws AirlineException {
+        Company company = companyRepository.findById(id)
+                                           .orElseThrow(()->new AirlineException(COMPANY_NOT_FOUND.getMessage()));
+        return company;
+    }
+
+    private static void verifyCompanyRegistrationRequest(CompanyRegistrationRequest companyRegistrationRequest) throws AirlineException {
+        if(companyRegistrationRequest.getCompanyName() == null)throw new AirlineException(PLEASE_PROVIDE_YOUR_COMPANY_NAME.getMessage());
+        if (companyRegistrationRequest.getCompanyLicencesNumber() == null) throw new AirlineException(PLEASE_PROVIDE_YOUR_LICENCES_NUMBER.getMessage());
     }
 }

@@ -32,7 +32,7 @@ public class Flight {
     @ElementCollection
     private List<FlightDestination> flightDestinations;
 
-    @Column(nullable = false)
-    private String companyName;
+    @ManyToOne
+    private Company company;
 
 }

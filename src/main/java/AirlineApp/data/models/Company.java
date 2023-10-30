@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -22,14 +23,9 @@ public class Company {
     @Column(nullable = false, unique = true)
     private String companyLicencesNumber;
 
-    @Column(nullable = false)
     private String location;
 
-
     @OneToMany
-    private List<Flight> fleet;
+    private List<Passenger> customers;
 
-
-    @OneToMany
-    private List<User> customers;
 }
