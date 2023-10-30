@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "bookings")
@@ -15,9 +16,9 @@ public class Booking {
     @Column(nullable = false)
     private String flightName;
     @Column(nullable = false)
-    private String startLocation;
+    private Destination startLocation;
     @Column(nullable = false)
-    private String destination;
+    private Destination destination;
     @Column(nullable = false)
     private LocalDate bookingDate;
     @Column(nullable = false)
@@ -25,5 +26,14 @@ public class Booking {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private TicketType ticketType;
+    private String ticketNumber;
+
+
+    @PrePersist
+    private void generateTicketNumber(){
+        ticketNumber = String.valueOf(UUID.randomUUID());
+    }
 
 }
+
+

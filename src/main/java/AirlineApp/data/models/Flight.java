@@ -30,7 +30,7 @@ public class Flight {
     private int flightCapacity;
 
     @ElementCollection
-    private List<FlightDestination> flightDestinations;
+    private List<Destination> destinations;
 
     @ManyToOne
     private Company company;

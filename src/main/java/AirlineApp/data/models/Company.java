@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -27,5 +26,8 @@ public class Company {
 
     @OneToMany
     private List<Passenger> customers;
+
+    @ElementCollection
+    private List<Destination> route;
 
 }

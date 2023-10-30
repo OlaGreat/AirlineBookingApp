@@ -1,6 +1,6 @@
 package AirlineApp.dtos.request;
 
-import AirlineApp.data.models.FlightDestination;
+import AirlineApp.data.models.Destination;
 import AirlineApp.data.models.FlightStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +16,5 @@ public class FlightRegistrationRequest {
     private String flightNumber;
     private FlightStatus flightStatus = IN_CABIN;
     private int flightCapacity;
-    private List<FlightDestination> flightDestination;
+    private List<Destination> destination;
 }
