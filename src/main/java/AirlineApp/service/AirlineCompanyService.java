@@ -5,7 +5,6 @@ import AirlineApp.data.repositories.CompanyRepository;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.FlightRegistrationRequest;
-import AirlineApp.dtos.response.AddFlightResponse;
 import AirlineApp.dtos.response.CompanyRegistrationResponse;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
 import AirlineApp.exceptions.AirlineException;
@@ -14,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 
+import static AirlineApp.dtos.response.ResponseMessage.WELCOME_ONBOARD;
+import static AirlineApp.dtos.response.ResponseMessage.WE_LOOK_FORWARD_TO_A_WONDERFUL_PARTNERSHIP;
 import static AirlineApp.exceptions.ExceptionMessages.*;
 
 
@@ -32,9 +33,7 @@ public class AirlineCompanyService implements CompanyService {
         Company savedCompany = companyRepository.save(company);
 
         CompanyRegistrationResponse companyRegistrationResponse = new CompanyRegistrationResponse();
-        companyRegistrationResponse.setMessage("Welcome onboard "+savedCompany.getCompanyName()+", we look forward to a wonderful" +
-                "partnerShip");
-
+        companyRegistrationResponse.setMessage(WELCOME_ONBOARD.getMessage()+savedCompany.getCompanyName()+WE_LOOK_FORWARD_TO_A_WONDERFUL_PARTNERSHIP.getMessage());
         return companyRegistrationResponse;
     }
 
@@ -43,12 +42,11 @@ public class AirlineCompanyService implements CompanyService {
         FlightRegistrationRequest flightRegistrationRequest = new FlightRegistrationRequest();
         BeanUtils.copyProperties(addFlightRequest, flightRegistrationRequest);
 
-        Company company = companyRepository.findById(id)
-//                .ifPresentOrElse(company1 -> company1.getCompanyName().toUpperCase())
-                        .orElseThrow( ()-> new AirlineException(COMPANY_NOT_FOUND.getMessage()));
+        Company company = findById(id);
         FlightRegistrationResponse flightRegistrationResponse = flightService.registerFlight(flightRegistrationRequest, company);
         return flightRegistrationResponse;
     }
+
 
     @Override
     public Company findById(Long id) throws AirlineException {

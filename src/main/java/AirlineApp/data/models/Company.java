@@ -3,8 +3,13 @@ package AirlineApp.data.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.mapping.FetchProfile;
 
 import java.util.List;
+
+import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Table
@@ -27,7 +32,8 @@ public class Company {
     @OneToMany
     private List<Passenger> customers;
 
-    @ElementCollection
-    private List<Destination> route;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(value = STRING)
+    private List<Destination> routes;
 
 }

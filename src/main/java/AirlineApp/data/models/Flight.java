@@ -13,13 +13,13 @@ import java.util.List;
 public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(nullable = false)
     private String flightName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String flightNumber;
 
 

@@ -2,9 +2,11 @@ package AirlineApp.service;
 
 import AirlineApp.data.models.Company;
 import AirlineApp.data.models.Destination;
+import AirlineApp.data.models.Flight;
 import AirlineApp.dtos.request.FlightRegistrationRequest;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
 import AirlineApp.exceptions.AirlineException;
+import AirlineApp.exceptions.FlightNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,11 +23,19 @@ class AirLineFlightServiceTest {
     @Autowired
     private CompanyService companyService;
 
+
     @Test
     void testRegisterFlight() throws AirlineException {
         Company company = companyService.findById(1L);
         FlightRegistrationResponse response = flightService.registerFlight(buildFlightRegistration(),company);
         assertThat(response).isNotNull();
+    }
+
+    @Test
+    void testThatFlightCanBeFindByFlightNumber() throws FlightNotFoundException {
+        Flight foundFlight = flightService.findByFlightNumber("2351Y17");
+        assertThat(foundFlight).isNotNull();
+
     }
 
     private FlightRegistrationRequest buildFlightRegistration(){

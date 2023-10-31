@@ -1,5 +1,6 @@
 package AirlineApp.service;
 
+import AirlineApp.data.models.Company;
 import AirlineApp.data.models.Destination;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
@@ -27,6 +28,9 @@ class AirlineCompanyServiceTest {
         CompanyRegistrationRequest request = new CompanyRegistrationRequest();
         request.setCompanyName("JAPA Air");
         request.setCompanyLicencesNumber("537825tyhg72Air");
+        request.setLocation("Nigeria");
+        request.setRoutes(List.of(Destination.valueOf("AUSTRALIA"), Destination.valueOf("NIGERIA"),
+                Destination.valueOf("USA")));
         CompanyRegistrationResponse registeredCompany = airlineCompanyService.registerCompany(request);
 
         assertThat(registeredCompany).isNotNull();
@@ -39,6 +43,7 @@ class AirlineCompanyServiceTest {
         assertThat(flightRegistrationResponse).isNotNull();
 
     }
+
 
     public AddFlightRequest buildFlightRequest(){
         AddFlightRequest request = new AddFlightRequest();

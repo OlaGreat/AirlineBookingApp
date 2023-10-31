@@ -5,9 +5,12 @@ import AirlineApp.data.models.Flight;
 import AirlineApp.data.repositories.FlightRepository;
 import AirlineApp.dtos.request.FlightRegistrationRequest;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
+import AirlineApp.exceptions.FlightNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import static AirlineApp.exceptions.ExceptionMessages.FLIGHT_NOT_FOUND;
 
 @AllArgsConstructor
 @Service
@@ -25,5 +28,18 @@ public class AirLineFlightService implements FlightService {
         FlightRegistrationResponse response = new FlightRegistrationResponse();
         response.setMessage("Flight registered successfully");
         return response;
+    }
+
+    @Override
+    public void deleteFlight(String flightNumber) throws FlightNotFoundException {
+        Flight foundFlight = findByFlightNumber(flightNumber);
+        flightRepository.deleteByFlightNumber(foundFlight);
+    }
+
+    @Override
+    public Flight findByFlightNumber(String flightNumber) throws FlightNotFoundException {
+        Flight foundFlight = flightRepository.findByFlightNumber(flightNumber)
+                .orElseThrow(()->new FlightNotFoundException(FLIGHT_NOT_FOUND.name()));
+        return foundFlight;
     }
 }
