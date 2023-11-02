@@ -6,6 +6,7 @@ import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.response.CompanyRegistrationResponse;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
+import AirlineApp.dtos.response.FlightRemoveResponse;
 import AirlineApp.exceptions.AirlineException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,12 @@ class AirlineCompanyServiceTest {
         FlightRegistrationResponse flightRegistrationResponse = airlineCompanyService.addFlight(buildFlightRequest(), 1L);
         assertThat(flightRegistrationResponse).isNotNull();
 
+    }
+
+    @Test
+    void testThatCompanyCanRemoveFlightByFlightName() throws AirlineException {
+        FlightRemoveResponse response = airlineCompanyService.removeFlight("2351Y17");
+        assertThat(response).isNotNull();
     }
 
 

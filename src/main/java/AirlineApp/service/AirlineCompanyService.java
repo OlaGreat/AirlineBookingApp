@@ -7,14 +7,15 @@ import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.FlightRegistrationRequest;
 import AirlineApp.dtos.response.CompanyRegistrationResponse;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
+import AirlineApp.dtos.response.FlightRemoveResponse;
 import AirlineApp.exceptions.AirlineException;
+import AirlineApp.exceptions.FlightNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 
-import static AirlineApp.dtos.response.ResponseMessage.WELCOME_ONBOARD;
-import static AirlineApp.dtos.response.ResponseMessage.WE_LOOK_FORWARD_TO_A_WONDERFUL_PARTNERSHIP;
+import static AirlineApp.dtos.response.ResponseMessage.*;
 import static AirlineApp.exceptions.ExceptionMessages.*;
 
 
@@ -45,6 +46,15 @@ public class AirlineCompanyService implements CompanyService {
         Company company = findById(id);
         FlightRegistrationResponse flightRegistrationResponse = flightService.registerFlight(flightRegistrationRequest, company);
         return flightRegistrationResponse;
+    }
+
+    @Override
+    public FlightRemoveResponse removeFlight(String flightNumber) throws FlightNotFoundException {
+        flightService.deleteFlight(flightNumber);
+
+        FlightRemoveResponse response = new FlightRemoveResponse();
+        response.setMessage(FLIGHT.getMessage() + flightNumber + SUCCESSFULLY_REMOVED);
+        return response;
     }
 
 

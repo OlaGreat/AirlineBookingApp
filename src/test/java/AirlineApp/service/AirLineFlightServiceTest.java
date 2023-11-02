@@ -38,6 +38,13 @@ class AirLineFlightServiceTest {
 
     }
 
+    @Test
+    void testThatFlightCanBeDeletedUsingFlightNumber() throws FlightNotFoundException {
+        flightService.deleteFlight("2351Y17");
+    }
+
+
+
     private FlightRegistrationRequest buildFlightRegistration(){
         FlightRegistrationRequest request = new FlightRegistrationRequest();
         request.setFlightName("Ro");
@@ -45,7 +52,6 @@ class AirLineFlightServiceTest {
         request.setFlightNumber("2351Y17");
         request.setDestination(List.of(Destination.valueOf("USA"),
                 Destination.valueOf("NIGERIA"), Destination.valueOf("CANADA")));
-
         return request;
 
     }
