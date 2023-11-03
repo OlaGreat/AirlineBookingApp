@@ -5,6 +5,9 @@ import AirlineApp.data.models.User;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 
 public class AppUtils {
+    public static String comma = ", ";
+    public static String splash="/";
+    public static String space =" ";
     public static User userMapper(RegisterPassengerRequest registerPassengerRequest) {
         User user = new User();
         user.setFirstName(registerPassengerRequest.getFirstName());

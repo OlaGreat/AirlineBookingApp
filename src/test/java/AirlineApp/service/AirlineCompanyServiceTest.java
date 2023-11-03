@@ -1,18 +1,23 @@
 package AirlineApp.service;
 
-import AirlineApp.data.models.Company;
 import AirlineApp.data.models.Destination;
+import AirlineApp.data.models.FlightType;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
+import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.dtos.response.CompanyRegistrationResponse;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
 import AirlineApp.dtos.response.FlightRemoveResponse;
+import AirlineApp.dtos.response.TripScheduleResponse;
 import AirlineApp.exceptions.AirlineException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -51,6 +56,13 @@ class AirlineCompanyServiceTest {
         assertThat(response).isNotNull();
     }
 
+    @Test
+    void testThatAirlineCompanyCanScheduleFlight(){
+        TripScheduleRequest request = buildTripScheduleRequest();
+        TripScheduleResponse response = airlineCompanyService.scheduleFlightTrip(request,1L);
+        assertThat(response).isNotNull();
+    }
+
 
     public AddFlightRequest buildFlightRequest(){
         AddFlightRequest request = new AddFlightRequest();
@@ -61,6 +73,26 @@ class AirlineCompanyServiceTest {
                 Destination.valueOf("NIGERIA"), Destination.valueOf("CANADA")));
         return request;
 
+    }
+
+    private static TripScheduleRequest buildTripScheduleRequest(){
+        TripScheduleRequest request = new TripScheduleRequest();
+        request.setDestination("CANADA");
+        request.setStartLocation("LAGOS");
+        request.setFlightType(FlightType.valueOf("DIRECT"));
+        request.setFlightCapacity(280);
+        request.setFlightName("Ro");
+        request.setFlightPriceEconomyClass("380");
+        request.setFlightPriceBusinessClass("700");
+        request.setTakeOffMonth("November");
+        request.setTakeOffDay("11");
+        request.setTakeOffYear("2023");
+        request.setTakeOffTime("22:30");
+        request.setLandingDay("12");
+        request.setLandingMonth("November");
+        request.setLandingYear("2023");
+        request.setLandingTime("17:30");
+        return request;
     }
 
 }

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_REGISTERED_SUCCESSFULLY;
 import static AirlineApp.exceptions.ExceptionMessages.FLIGHT_NOT_FOUND;
 
 @AllArgsConstructor
@@ -26,15 +27,17 @@ public class AirLineFlightService implements FlightService {
         flightRepository.save(flight);
 
         FlightRegistrationResponse response = new FlightRegistrationResponse();
-        response.setMessage("Flight registered successfully");
+        response.setMessage(FLIGHT_REGISTERED_SUCCESSFULLY.getMessage());
         return response;
     }
 
     @Override
     public void deleteFlight(String flightNumber) throws FlightNotFoundException {
-        findByFlightNumber(flightNumber);
-        flightRepository.deleteByFlightNumber(flightNumber);
+        Flight flight = findByFlightNumber(flightNumber);
+        flightRepository.delete(flight);
+
     }
+
 
     @Override
     public Flight findByFlightNumber(String flightNumber) throws FlightNotFoundException {

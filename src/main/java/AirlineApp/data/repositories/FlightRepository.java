@@ -11,5 +11,4 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
 
     Optional<Flight> findByFlightNumber(String flightNumber);
 
-    void deleteByFlightNumber(String flightNumber);
 }
