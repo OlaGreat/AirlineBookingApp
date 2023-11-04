@@ -39,6 +39,8 @@ public class AirlineCompanyService implements CompanyService {
     private final CompanyRepository companyRepository;
     private final FlightService flightService;
 
+    private final FlightScheduleService flightScheduleService;
+
     @Override
     public CompanyRegistrationResponse registerCompany(CompanyRegistrationRequest companyRegistrationRequest) throws AirlineException {
         verifyCompanyRegistrationRequest(companyRegistrationRequest);
@@ -79,20 +81,10 @@ public class AirlineCompanyService implements CompanyService {
     }
 
     @Override
-    public TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId) {
-        FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setFlightPriceBusinessClass(new BigDecimal(tripScheduleRequest.getFlightPriceBusinessClass()));
-        flightSchedule.setFlightPriceEconomyClass(new BigDecimal(tripScheduleRequest.getFlightPriceEconomyClass()));
-        flightSchedule.setDestination(Destination.valueOf(tripScheduleRequest.getDestination().toUpperCase()));
-        flightSchedule.setStartLocation(Destination.valueOf(tripScheduleRequest.getStartLocation().toUpperCase()));
-        flightSchedule.setFlightType(FlightType.valueOf(tripScheduleRequest.getFlightType().toUpperCase()));
-        BeanUtils.copyProperties(tripScheduleRequest, flightSchedule);
-
-        TripScheduleResponse scheduleResponse = new TripScheduleResponse();
-        scheduleResponse.setMessage(TRIP_SCHEDULE_FOR_FLIGHT.getMessage()+tripScheduleRequest.getFlightName()+comma+ON.getMessage()+
-                tripScheduleRequest.getTakeOffDay()+splash+ tripScheduleRequest.getTakeOffMonth()+splash+
-                tripScheduleRequest.getTakeOffYear()+space+tripScheduleRequest.getTakeOffTime()+space+IS_SUCCESSFUL);
-        return scheduleResponse;
+    public TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId) throws AirlineException {
+        Company company = findById(companyId);
+        TripScheduleResponse tripScheduleResponse = flightScheduleService.scheduleTrip(tripScheduleRequest,company);
+       return tripScheduleResponse;
     }
 
     private static void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest){

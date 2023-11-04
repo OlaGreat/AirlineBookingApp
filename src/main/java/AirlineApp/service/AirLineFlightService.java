@@ -5,12 +5,16 @@ import AirlineApp.data.models.Flight;
 import AirlineApp.data.repositories.FlightRepository;
 import AirlineApp.dtos.request.FlightRegistrationRequest;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
+import AirlineApp.exceptions.FlightAlreadyRegisteredException;
 import AirlineApp.exceptions.FlightNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_REGISTERED_SUCCESSFULLY;
+import static AirlineApp.exceptions.ExceptionMessages.FLIGHT_ALREADY_EXIST;
 import static AirlineApp.exceptions.ExceptionMessages.FLIGHT_NOT_FOUND;
 
 @AllArgsConstructor
@@ -20,7 +24,9 @@ public class AirLineFlightService implements FlightService {
     private final FlightRepository flightRepository;
 
     @Override
-    public FlightRegistrationResponse registerFlight(FlightRegistrationRequest flightRegistrationRequest, Company company) {
+    public FlightRegistrationResponse registerFlight(FlightRegistrationRequest flightRegistrationRequest, Company company) throws FlightNotFoundException, FlightAlreadyRegisteredException {
+        String flightNumber = flightRegistrationRequest.getFlightNumber();
+        if(isAlreadyRegistered(flightNumber)) throw new FlightAlreadyRegisteredException(FLIGHT_ALREADY_EXIST.getMessage());
         Flight flight = new Flight();
         flight.setCompany(company);
         BeanUtils.copyProperties(flightRegistrationRequest,flight);
@@ -45,4 +51,11 @@ public class AirLineFlightService implements FlightService {
                 .orElseThrow(()->new FlightNotFoundException(FLIGHT_NOT_FOUND.name()));
         return foundFlight;
     }
+
+    private boolean isAlreadyRegistered(String flightNumber) {
+        Optional<Flight> foundFlight = flightRepository.findByFlightNumber(flightNumber);
+        return foundFlight.isPresent();
+    }
+
+
 }

@@ -1,8 +1,11 @@
 package AirlineApp.util;
 
-import AirlineApp.data.models.Passenger;
-import AirlineApp.data.models.User;
+import AirlineApp.data.models.*;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
+import AirlineApp.dtos.request.TripScheduleRequest;
+import org.springframework.beans.BeanUtils;
+
+import java.math.BigDecimal;
 
 public class AppUtils {
     public static String comma = ", ";
@@ -17,5 +20,17 @@ public class AppUtils {
         user.setPhoneNumber(registerPassengerRequest.getPhoneNumber());
         user.setPassword(registerPassengerRequest.getPassword());
         return user;
+    }
+
+    public static FlightSchedule flightScheduleMapper(TripScheduleRequest tripScheduleRequest, Company company){
+       FlightSchedule flightSchedule = new FlightSchedule();
+        flightSchedule.setCompany(company);
+        flightSchedule.setFlightPriceBusinessClass(new BigDecimal(tripScheduleRequest.getFlightPriceBusinessClass()));
+        flightSchedule.setFlightPriceEconomyClass(new BigDecimal(tripScheduleRequest.getFlightPriceEconomyClass()));
+        flightSchedule.setDestination(Destination.valueOf(tripScheduleRequest.getDestination().toUpperCase()));
+        flightSchedule.setStartLocation(Destination.valueOf(tripScheduleRequest.getStartLocation().toUpperCase()));
+        flightSchedule.setFlightType(FlightType.valueOf(tripScheduleRequest.getFlightType().toUpperCase()));
+        BeanUtils.copyProperties(tripScheduleRequest, flightSchedule);
+        return flightSchedule;
     }
 }

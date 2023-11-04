@@ -16,6 +16,6 @@ public interface CompanyService {
     FlightRemoveResponse removeFlight(String flightNumber) throws AirlineException;
     Company findById(Long id) throws AirlineException;
 
-    TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId);
+    TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId) throws AirlineException;
 
 }

@@ -3,9 +3,7 @@ package AirlineApp.data.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.FetchMode;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.mapping.FetchProfile;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -15,6 +13,7 @@ import static jakarta.persistence.EnumType.STRING;
 @Table
 @Setter
 @Getter
+@ToString
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,14 +22,10 @@ public class Company {
     @Column(nullable = false, unique = true)
     private String companyName;
 
-
     @Column(nullable = false, unique = true)
     private String companyLicencesNumber;
 
     private String location;
-
-    @OneToMany
-    private List<Passenger> customers;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(value = STRING)

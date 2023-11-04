@@ -57,10 +57,11 @@ class AirlineCompanyServiceTest {
     }
 
     @Test
-    void testThatAirlineCompanyCanScheduleFlight(){
+    void testThatAirlineCompanyCanScheduleFlight() throws AirlineException {
         TripScheduleRequest request = buildTripScheduleRequest();
         TripScheduleResponse response = airlineCompanyService.scheduleFlightTrip(request,1L);
         assertThat(response).isNotNull();
+        System.out.println(response);
     }
 
 
@@ -79,7 +80,7 @@ class AirlineCompanyServiceTest {
         TripScheduleRequest request = new TripScheduleRequest();
         request.setDestination("CANADA");
         request.setStartLocation("LAGOS");
-        request.setFlightType(FlightType.valueOf("DIRECT"));
+        request.setFlightType("DIRECT");
         request.setFlightCapacity(280);
         request.setFlightName("Ro");
         request.setFlightPriceEconomyClass("380");

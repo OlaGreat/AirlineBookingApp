@@ -3,12 +3,14 @@ package AirlineApp.data.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @Entity
 @Setter
 @Getter
+@ToString
 public class FlightSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,8 +20,10 @@ public class FlightSchedule {
     @Column(nullable = false)
     private int flightCapacity;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Destination startLocation;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Destination destination;
     @Column(nullable = false)
     private BigDecimal flightPriceBusinessClass;
@@ -32,7 +36,7 @@ public class FlightSchedule {
     @Column(nullable = false)
     private String takeOffYear;
     @Column(nullable = false)
-    private String takeoffTime;
+    private String takeOffTime;
     @Column(nullable = false)
     private String landingMonth;
     @Column(nullable = false)
@@ -42,5 +46,8 @@ public class FlightSchedule {
     @Column(nullable = false)
     private String landingTime;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private FlightType flightType;
+    @ManyToOne
+    private Company company;
 }

@@ -2,9 +2,11 @@ package AirlineApp.controllers;
 
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
+import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.dtos.response.CompanyRegistrationResponse;
 import AirlineApp.dtos.response.FlightRegistrationResponse;
 import AirlineApp.dtos.response.FlightRemoveResponse;
+import AirlineApp.dtos.response.TripScheduleResponse;
 import AirlineApp.exceptions.AirlineException;
 import AirlineApp.service.CompanyService;
 import lombok.AllArgsConstructor;
@@ -25,7 +27,7 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/addflight/{companyId}")
+    @PostMapping("/add-flight/{companyId}")
     ResponseEntity<FlightRegistrationResponse> addFlight (@RequestBody AddFlightRequest request, @PathVariable Long companyId) throws AirlineException {
         FlightRegistrationResponse response = companyService.addFlight(request, companyId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -34,6 +36,12 @@ public class CompanyController {
     @DeleteMapping("/remove-flight")
     ResponseEntity<FlightRemoveResponse> deleteFlight(String flightNumber) throws AirlineException {
         FlightRemoveResponse response = companyService.removeFlight(flightNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/schedule-flight/{companyId}")
+    ResponseEntity<TripScheduleResponse> scheduleTrip(@RequestBody TripScheduleRequest request, @PathVariable Long companyId) throws AirlineException {
+        TripScheduleResponse response = companyService.scheduleFlightTrip(request, companyId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
