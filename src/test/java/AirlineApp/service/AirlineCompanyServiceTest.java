@@ -1,7 +1,6 @@
 package AirlineApp.service;
 
 import AirlineApp.data.models.Destination;
-import AirlineApp.data.models.FlightType;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
@@ -15,9 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.reflect.Field;
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -59,6 +55,7 @@ class AirlineCompanyServiceTest {
     @Test
     void testThatAirlineCompanyCanScheduleFlight() throws AirlineException {
         TripScheduleRequest request = buildTripScheduleRequest();
+        System.out.println(request);
         TripScheduleResponse response = airlineCompanyService.scheduleFlightTrip(request,1L);
         assertThat(response).isNotNull();
         System.out.println(response);

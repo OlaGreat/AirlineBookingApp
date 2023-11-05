@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Setter
@@ -50,4 +51,6 @@ public class FlightSchedule {
     private FlightType flightType;
     @ManyToOne
     private Company company;
+    @ElementCollection
+    private List<String> passengersEmail;
 }

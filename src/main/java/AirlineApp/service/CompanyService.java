@@ -18,4 +18,6 @@ public interface CompanyService {
 
     TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId) throws AirlineException;
 
+
+
 }
