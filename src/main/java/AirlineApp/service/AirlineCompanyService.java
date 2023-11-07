@@ -1,9 +1,7 @@
 package AirlineApp.service;
 
 import AirlineApp.data.models.Company;
-import AirlineApp.data.models.Destination;
 import AirlineApp.data.models.FlightSchedule;
-import AirlineApp.data.models.FlightType;
 import AirlineApp.data.repositories.CompanyRepository;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
@@ -15,21 +13,18 @@ import AirlineApp.dtos.response.FlightRemoveResponse;
 import AirlineApp.dtos.response.TripScheduleResponse;
 import AirlineApp.exceptions.AirlineException;
 import AirlineApp.exceptions.FlightNotFoundException;
-import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import static AirlineApp.dtos.response.ResponseMessage.*;
 import static AirlineApp.exceptions.ExceptionMessages.*;
 import static AirlineApp.util.AppUtils.*;
+import static AirlineApp.util.AppUtils.space;
 
 
 @Service
@@ -83,8 +78,24 @@ public class AirlineCompanyService implements CompanyService {
     @Override
     public TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId) throws AirlineException {
         Company company = findById(companyId);
-        TripScheduleResponse tripScheduleResponse = flightScheduleService.scheduleTrip(tripScheduleRequest,company);
+        FlightSchedule scheduledFlight = flightScheduleService.scheduleTrip(tripScheduleRequest,company);
+
+        company.getSchedules().add(scheduledFlight);
+        companyRepository.save(company);
+
+        TripScheduleResponse tripScheduleResponse = new TripScheduleResponse();
+        tripScheduleResponse.setMessage(TRIP_SCHEDULE_FOR_FLIGHT.getMessage()+scheduledFlight.getFlightName()+comma+FOR.getMessage()+
+                scheduledFlight.getTakeOffDay()+splash+ scheduledFlight.getTakeOffMonth()+splash+
+                scheduledFlight.getTakeOffYear()+space+scheduledFlight.getTakeOffTime()+space+IS_SUCCESSFUL);
+
        return tripScheduleResponse;
+    }
+
+    @Override
+    public List<FlightSchedule> viewScheduledFlight(long companyId) throws AirlineException {
+        Company company = findById(companyId);
+        List<FlightSchedule> scheduledTrip = company.getSchedules();
+        return scheduledTrip;
     }
 
     private static void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest){

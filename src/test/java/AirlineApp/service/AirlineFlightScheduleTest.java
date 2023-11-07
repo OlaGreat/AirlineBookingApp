@@ -1,6 +1,7 @@
 package AirlineApp.service;
 
 import AirlineApp.data.models.Company;
+import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.dtos.response.TripScheduleResponse;
 import AirlineApp.exceptions.AirlineException;
@@ -22,9 +23,8 @@ public class AirlineFlightScheduleTest {
     void testThatFlightCanScheduleFlight() throws AirlineException {
         Company company = companyService.findById(1L);
         TripScheduleRequest request = buildTripScheduleRequest();
-        TripScheduleResponse response = flightScheduleService.scheduleTrip(request,company);
-        assertThat(response).isNotNull();
-        System.out.println(response);
+        FlightSchedule flightSchedule = flightScheduleService.scheduleTrip(request,company);
+        assertThat(flightSchedule).isNotNull();
     }
 
     private static TripScheduleRequest buildTripScheduleRequest(){

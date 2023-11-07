@@ -24,15 +24,12 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     private final FlightScheduleRepository flightScheduleRepository;
 
 
+
     @Override
-    public TripScheduleResponse scheduleTrip(TripScheduleRequest tripScheduleRequest, Company company) {
+    public FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, Company company) {
         FlightSchedule flightSchedule = flightScheduleMapper(tripScheduleRequest, company);
         FlightSchedule savedFlightSchedule = flightScheduleRepository.save(flightSchedule);
 
-        TripScheduleResponse scheduleResponse = new TripScheduleResponse();
-        scheduleResponse.setMessage(TRIP_SCHEDULE_FOR_FLIGHT.getMessage()+savedFlightSchedule.getFlightName()+comma+FOR.getMessage()+
-                savedFlightSchedule.getTakeOffDay()+splash+ savedFlightSchedule.getTakeOffMonth()+splash+
-                savedFlightSchedule.getTakeOffYear()+space+savedFlightSchedule.getTakeOffTime()+space+IS_SUCCESSFUL);
-        return scheduleResponse;
+       return savedFlightSchedule;
     }
 }

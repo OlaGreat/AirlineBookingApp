@@ -31,4 +31,7 @@ public class Company {
     @Enumerated(value = STRING)
     private List<Destination> routes;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<FlightSchedule> schedules;
+
 }
