@@ -6,11 +6,22 @@ import AirlineApp.dtos.request.TripScheduleRequest;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppUtils {
     public static String comma = ", ";
     public static String splash="/";
     public static String space =" ";
+
+
+    public static List<Destination> destination (List<String> destinations){
+        List<Destination> routes = destinations.stream()
+                .map(destination -> Destination.valueOf(destination.toUpperCase()))
+                 .collect(Collectors.toList());
+
+        return routes;
+    }
     public static User userMapper(RegisterPassengerRequest registerPassengerRequest) {
         User user = new User();
         user.setFirstName(registerPassengerRequest.getFirstName());

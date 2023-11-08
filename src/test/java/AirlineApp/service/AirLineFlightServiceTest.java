@@ -50,8 +50,8 @@ class AirLineFlightServiceTest {
         request.setFlightName("Ro");
         request.setFlightCapacity(280);
         request.setFlightNumber("2351Y17");
-        request.setDestination(List.of(Destination.valueOf("USA"),
-                Destination.valueOf("NIGERIA"), Destination.valueOf("CANADA")));
+        request.setDestination(List.of("USA","NIGERIA","CANADA"));
+
         return request;
 
     }

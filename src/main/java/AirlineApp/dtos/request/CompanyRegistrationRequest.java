@@ -12,5 +12,5 @@ public class CompanyRegistrationRequest {
     private String companyName;
     private String companyLicencesNumber;
     private String location;
-    private List<Destination> routes;
+    private List<String> routes;
 }

@@ -29,11 +29,10 @@ class AirlineCompanyServiceTest {
     @Test
     void testThatCompanyCanRegister() throws AirlineException {
         CompanyRegistrationRequest request = new CompanyRegistrationRequest();
-        request.setCompanyName("JAPA Air");
-        request.setCompanyLicencesNumber("537825tyhg72Air");
+        request.setCompanyName("Speed Air");
+        request.setCompanyLicencesNumber("537825ti9hg72Air");
         request.setLocation("Nigeria");
-        request.setRoutes(List.of(Destination.valueOf("AUSTRALIA"), Destination.valueOf("NIGERIA"),
-                Destination.valueOf("USA")));
+        request.setRoutes(List.of("Australia","Nigeria","usa"));
         CompanyRegistrationResponse registeredCompany = airlineCompanyService.registerCompany(request);
 
         assertThat(registeredCompany).isNotNull();
@@ -78,8 +77,7 @@ class AirlineCompanyServiceTest {
         request.setFlightName("Ro");
         request.setFlightCapacity(280);
         request.setFlightNumber("2351Y17");
-        request.setDestination(List.of(Destination.valueOf("USA"),
-                Destination.valueOf("NIGERIA"), Destination.valueOf("CANADA")));
+        request.setDestination(List.of("USA","NIGERIA", "CANADA"));
         return request;
 
     }

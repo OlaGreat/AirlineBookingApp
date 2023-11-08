@@ -1,6 +1,7 @@
 package AirlineApp.service;
 
 import AirlineApp.data.models.Company;
+import AirlineApp.data.models.Destination;
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.repositories.CompanyRepository;
 import AirlineApp.dtos.request.AddFlightRequest;
@@ -40,6 +41,10 @@ public class AirlineCompanyService implements CompanyService {
     public CompanyRegistrationResponse registerCompany(CompanyRegistrationRequest companyRegistrationRequest) throws AirlineException {
         verifyCompanyRegistrationRequest(companyRegistrationRequest);
         Company company = new Company();
+
+        List<Destination> routes = destination(companyRegistrationRequest.getRoutes());
+        company.setRoutes(routes);
+
         BeanUtils.copyProperties(companyRegistrationRequest,company);
         Company savedCompany = companyRepository.save(company);
 
@@ -60,6 +65,7 @@ public class AirlineCompanyService implements CompanyService {
 
     @Override
     public FlightRemoveResponse removeFlight(String flightNumber) throws FlightNotFoundException {
+        System.out.println("------------------>>> ");
         flightService.deleteFlight(flightNumber);
 
         FlightRemoveResponse response = new FlightRemoveResponse();
@@ -103,8 +109,12 @@ public class AirlineCompanyService implements CompanyService {
         System.out.println(Arrays.toString(field));
     }
 
+
+
     private static void verifyCompanyRegistrationRequest(CompanyRegistrationRequest companyRegistrationRequest) throws AirlineException {
         if(companyRegistrationRequest.getCompanyName() == null)throw new AirlineException(PLEASE_PROVIDE_YOUR_COMPANY_NAME.getMessage());
         if (companyRegistrationRequest.getCompanyLicencesNumber() == null) throw new AirlineException(PLEASE_PROVIDE_YOUR_LICENCES_NUMBER.getMessage());
     }
+
+
 }

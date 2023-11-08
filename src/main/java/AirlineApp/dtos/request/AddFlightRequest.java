@@ -15,7 +15,7 @@ public class AddFlightRequest {
     private String flightNumber;
     private FlightStatus flightStatus = FlightStatus.IN_CABIN;
     private int flightCapacity;
-    private List<Destination> destination;
+    private List<String> destination;
 
 
 }

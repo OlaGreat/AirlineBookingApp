@@ -16,5 +16,5 @@ public class FlightRegistrationRequest {
     private String flightNumber;
     private FlightStatus flightStatus = IN_CABIN;
     private int flightCapacity;
-    private List<Destination> destination;
+    private List<String> destination;
 }

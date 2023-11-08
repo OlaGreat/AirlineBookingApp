@@ -1,5 +1,6 @@
 package AirlineApp.controllers;
 
+import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
@@ -13,6 +14,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/company")
@@ -34,8 +37,10 @@ public class CompanyController {
     }
 
     @DeleteMapping("/remove-flight")
-    ResponseEntity<FlightRemoveResponse> deleteFlight(String flightNumber) throws AirlineException {
+    ResponseEntity<FlightRemoveResponse> deleteFlight(@RequestBody String flightNumber) throws AirlineException {
+        System.out.println("------------------>>> ");
         FlightRemoveResponse response = companyService.removeFlight(flightNumber);
+        System.out.println("------------------>>> ");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -43,6 +48,12 @@ public class CompanyController {
     ResponseEntity<TripScheduleResponse> scheduleTrip(@RequestBody TripScheduleRequest request, @PathVariable Long companyId) throws AirlineException {
         TripScheduleResponse response = companyService.scheduleFlightTrip(request, companyId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/veiw-scheduled-flight/{companyId}")
+    ResponseEntity<List<FlightSchedule>> viewScheduledFlight(@PathVariable Long companyId) throws AirlineException {
+        List<FlightSchedule> scheduledFlight = companyService.viewScheduledFlight(companyId);
+        return ResponseEntity.status(HttpStatus.OK).body(scheduledFlight);
     }
 
 }
