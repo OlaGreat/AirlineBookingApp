@@ -36,11 +36,9 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping("/remove-flight")
-    ResponseEntity<FlightRemoveResponse> deleteFlight(@RequestBody String flightNumber) throws AirlineException {
-        System.out.println("------------------>>> ");
+    @DeleteMapping("/remove-flight/{flightNumber}")
+    ResponseEntity<FlightRemoveResponse> deleteFlight(@PathVariable String flightNumber) throws AirlineException {
         FlightRemoveResponse response = companyService.removeFlight(flightNumber);
-        System.out.println("------------------>>> ");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

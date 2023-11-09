@@ -8,6 +8,6 @@ import AirlineApp.dtos.response.FlightCancellationResponse;
 import AirlineApp.dtos.response.TripScheduleResponse;
 
 public interface FlightScheduleService {
-    FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, Company company);
+    FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId);
 //    FlightCancellationResponse cancelScheduledFlight(FlightCancellationRequest flightCancellationRequest);
 }

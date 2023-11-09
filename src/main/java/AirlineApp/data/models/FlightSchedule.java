@@ -49,8 +49,7 @@ public class FlightSchedule {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private FlightType flightType;
-    @ManyToOne
-    private Company company;
+    private Long companyId;
     @ElementCollection
     private List<String> passengersEmail;
 }

@@ -65,11 +65,11 @@ public class AirlineCompanyService implements CompanyService {
 
     @Override
     public FlightRemoveResponse removeFlight(String flightNumber) throws FlightNotFoundException {
-        System.out.println("------------------>>> ");
+
         flightService.deleteFlight(flightNumber);
 
         FlightRemoveResponse response = new FlightRemoveResponse();
-        response.setMessage(FLIGHT.getMessage() + flightNumber + SUCCESSFULLY_REMOVED);
+        response.setMessage(FLIGHT.getMessage() + flightNumber + SUCCESSFULLY_REMOVED.getMessage());
         return response;
     }
 
@@ -82,9 +82,9 @@ public class AirlineCompanyService implements CompanyService {
     }
 
     @Override
-    public TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, Long companyId) throws AirlineException {
+    public TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, long companyId) throws AirlineException {
         Company company = findById(companyId);
-        FlightSchedule scheduledFlight = flightScheduleService.scheduleTrip(tripScheduleRequest,company);
+        FlightSchedule scheduledFlight = flightScheduleService.scheduleTrip(tripScheduleRequest,companyId);
 
         company.getSchedules().add(scheduledFlight);
         companyRepository.save(company);

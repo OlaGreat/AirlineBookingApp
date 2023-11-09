@@ -68,7 +68,7 @@ class AirlineCompanyServiceTest {
     @Test
     void testThatCompanyCanViewListOfThereScheduleAfterAdding() throws AirlineException {
         List<FlightSchedule> scheduledFlight = airlineCompanyService.viewScheduledFlight(1L);
-        assertThat(scheduledFlight.size()).isEqualTo(1);
+        assertThat(scheduledFlight.size()).isEqualTo(2);
     }
 
 

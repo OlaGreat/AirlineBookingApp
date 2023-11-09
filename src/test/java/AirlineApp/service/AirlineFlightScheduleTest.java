@@ -23,7 +23,7 @@ public class AirlineFlightScheduleTest {
     void testThatFlightCanScheduleFlight() throws AirlineException {
         Company company = companyService.findById(1L);
         TripScheduleRequest request = buildTripScheduleRequest();
-        FlightSchedule flightSchedule = flightScheduleService.scheduleTrip(request,company);
+        FlightSchedule flightSchedule = flightScheduleService.scheduleTrip(request,1L);
         assertThat(flightSchedule).isNotNull();
     }
 

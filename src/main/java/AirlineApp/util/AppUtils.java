@@ -33,9 +33,9 @@ public class AppUtils {
         return user;
     }
 
-    public static FlightSchedule flightScheduleMapper(TripScheduleRequest tripScheduleRequest, Company company){
+    public static FlightSchedule flightScheduleMapper(TripScheduleRequest tripScheduleRequest, Long companyId){
        FlightSchedule flightSchedule = new FlightSchedule();
-        flightSchedule.setCompany(company);
+        flightSchedule.setCompanyId(companyId);
         flightSchedule.setFlightPriceBusinessClass(new BigDecimal(tripScheduleRequest.getFlightPriceBusinessClass()));
         flightSchedule.setFlightPriceEconomyClass(new BigDecimal(tripScheduleRequest.getFlightPriceEconomyClass()));
         flightSchedule.setDestination(Destination.valueOf(tripScheduleRequest.getDestination().toUpperCase()));

@@ -26,8 +26,8 @@ public class AirlineFlightSchedule implements FlightScheduleService{
 
 
     @Override
-    public FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, Company company) {
-        FlightSchedule flightSchedule = flightScheduleMapper(tripScheduleRequest, company);
+    public FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId) {
+        FlightSchedule flightSchedule = flightScheduleMapper(tripScheduleRequest, companyId);
         FlightSchedule savedFlightSchedule = flightScheduleRepository.save(flightSchedule);
 
        return savedFlightSchedule;
