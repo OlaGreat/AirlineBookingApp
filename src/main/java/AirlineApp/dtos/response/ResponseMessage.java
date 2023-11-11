@@ -7,9 +7,11 @@ public enum ResponseMessage {
     FLIGHT_REGISTERED_SUCCESSFULLY("Flight registered successfully"),
     TRIP_SCHEDULE_FOR_FLIGHT("Trip schedule for flight "),
     FOR("for "),
-    IS_SUCCESSFUL("IS_Successful"),
+    IS_SUCCESSFUL("Is Successful"),
     SCHEDULE("Schedule"),
-    WE_LOOK_FORWARD_TO_A_WONDERFUL_PARTNERSHIP(" we look forward to a wonderful partnerShip");
+    WE_LOOK_FORWARD_TO_A_WONDERFUL_PARTNERSHIP(" we look forward to a wonderful partnerShip"),
+    FLIGHT_SCHEDULE_NOT_FOUND("Schedule flight not found"),
+    SCHEDULE_SUCCESSFUL_DELETED("Schedule successfully deleted");
 private String message;
  ResponseMessage(String message){
     this.message = message;

@@ -1,13 +1,12 @@
 package AirlineApp.service;
 
-import AirlineApp.data.models.Company;
 import AirlineApp.data.models.FlightSchedule;
-import AirlineApp.dtos.request.FlightCancellationRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
-import AirlineApp.dtos.response.FlightCancellationResponse;
-import AirlineApp.dtos.response.TripScheduleResponse;
+import AirlineApp.exceptions.ScheduleNotFoundException;
 
 public interface FlightScheduleService {
     FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId);
 //    FlightCancellationResponse cancelScheduledFlight(FlightCancellationRequest flightCancellationRequest);
+    FlightSchedule deleteScheduledFlight(long ScheduledFlightId) throws ScheduleNotFoundException;
+    FlightSchedule findById(long scheduleId) throws ScheduleNotFoundException;
 }

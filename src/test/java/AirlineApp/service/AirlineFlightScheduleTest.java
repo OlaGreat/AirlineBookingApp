@@ -1,10 +1,9 @@
 package AirlineApp.service;
 
-import AirlineApp.data.models.Company;
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.TripScheduleRequest;
-import AirlineApp.dtos.response.TripScheduleResponse;
 import AirlineApp.exceptions.AirlineException;
+import AirlineApp.exceptions.ScheduleNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,15 +15,20 @@ public class AirlineFlightScheduleTest {
     @Autowired
     private FlightScheduleService flightScheduleService;
 
-    @Autowired
-    private CompanyService companyService;
 
     @Test
     void testThatFlightCanScheduleFlight() throws AirlineException {
-        Company company = companyService.findById(1L);
         TripScheduleRequest request = buildTripScheduleRequest();
         FlightSchedule flightSchedule = flightScheduleService.scheduleTrip(request,1L);
         assertThat(flightSchedule).isNotNull();
+    }
+
+    @Test
+    void testThatScheduleFlightCanBeDeleted() throws ScheduleNotFoundException {
+        FlightSchedule foundFlightSchedule = flightScheduleService.findById(302);
+        FlightSchedule deletedFlight = flightScheduleService.deleteScheduledFlight(302);
+        assertThat(deletedFlight).isNotNull();
+        assertThat(deletedFlight).isEqualTo(foundFlightSchedule);
     }
 
     private static TripScheduleRequest buildTripScheduleRequest(){

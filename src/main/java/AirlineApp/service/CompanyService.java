@@ -5,10 +5,7 @@ import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
-import AirlineApp.dtos.response.CompanyRegistrationResponse;
-import AirlineApp.dtos.response.FlightRegistrationResponse;
-import AirlineApp.dtos.response.FlightRemoveResponse;
-import AirlineApp.dtos.response.TripScheduleResponse;
+import AirlineApp.dtos.response.*;
 import AirlineApp.exceptions.AirlineException;
 
 import java.util.List;
@@ -21,4 +18,6 @@ public interface CompanyService {
 
     TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, long companyId) throws AirlineException;
     List<FlightSchedule> viewScheduledFlight(long companyId) throws AirlineException;
+
+    DeleteScheduledFlightResponse deleteScheduleFlight(long companyId, long scheduleFlightId) throws AirlineException;
 }

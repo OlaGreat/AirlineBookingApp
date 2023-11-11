@@ -8,10 +8,7 @@ import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.FlightRegistrationRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
-import AirlineApp.dtos.response.CompanyRegistrationResponse;
-import AirlineApp.dtos.response.FlightRegistrationResponse;
-import AirlineApp.dtos.response.FlightRemoveResponse;
-import AirlineApp.dtos.response.TripScheduleResponse;
+import AirlineApp.dtos.response.*;
 import AirlineApp.exceptions.AirlineException;
 import AirlineApp.exceptions.FlightNotFoundException;
 import lombok.AllArgsConstructor;
@@ -102,6 +99,21 @@ public class AirlineCompanyService implements CompanyService {
         Company company = findById(companyId);
         List<FlightSchedule> scheduledTrip = company.getSchedules();
         return scheduledTrip;
+    }
+
+    @Override
+    public DeleteScheduledFlightResponse deleteScheduleFlight(long companyId, long scheduleFlightId) throws AirlineException {
+        Company company = findById(companyId);
+        FlightSchedule flightScheduleToDeleted = flightScheduleService.deleteScheduledFlight(scheduleFlightId);
+
+        company.getSchedules()
+               .remove(flightScheduleToDeleted);
+
+        companyRepository.save(company);
+
+        DeleteScheduledFlightResponse response = new DeleteScheduledFlightResponse();
+        response.setMessage(SCHEDULE_SUCCESSFUL_DELETED.getMessage());
+        return response;
     }
 
     private static void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest){

@@ -50,6 +50,6 @@ public class FlightSchedule {
     @Enumerated(EnumType.STRING)
     private FlightType flightType;
     private Long companyId;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> passengersEmail;
 }
