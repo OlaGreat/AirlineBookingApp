@@ -11,6 +11,7 @@ public enum ResponseMessage {
     SCHEDULE("Schedule"),
     WE_LOOK_FORWARD_TO_A_WONDERFUL_PARTNERSHIP(" we look forward to a wonderful partnerShip"),
     FLIGHT_SCHEDULE_NOT_FOUND("Schedule flight not found"),
+    YOU_SUCCESSFULLY_REGISTERED("You successfully registered"),
     SCHEDULE_SUCCESSFUL_DELETED("Schedule successfully deleted");
 private String message;
  ResponseMessage(String message){

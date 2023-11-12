@@ -27,4 +27,9 @@ public class PassengerServiceTest {
         RegisterPassengerResponse registerPassengerResponse = passengerService.registerPassenger(registerPassenger);
         assertNotNull(registerPassengerResponse);
     }
+
+//    @Test
+//    void testThatPassengerCanBookFlight(){
+//        passengerService.bookFlight();
+//    }
 }

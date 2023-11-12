@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     Optional<Company> readByCompanyName(String company);
+
+    Optional<Company> findFirst();
 }

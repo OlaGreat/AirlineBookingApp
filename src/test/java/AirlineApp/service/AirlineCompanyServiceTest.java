@@ -1,5 +1,6 @@
 package AirlineApp.service;
 
+import AirlineApp.data.models.Company;
 import AirlineApp.data.models.Destination;
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.AddFlightRequest;
@@ -72,6 +73,11 @@ class AirlineCompanyServiceTest {
         DeleteScheduledFlightResponse response = airlineCompanyService.deleteScheduleFlight(1,602);
         assertThat(response).isNotNull();
 
+    }
+
+    @Test void testFindFirst(){
+        Company company = airlineCompanyService.findFirstOne();
+        System.out.println(company);
     }
 
 

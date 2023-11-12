@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static AirlineApp.dtos.response.ResponseMessage.*;
 import static AirlineApp.exceptions.ExceptionMessages.*;
@@ -118,9 +119,21 @@ public class AirlineCompanyService implements CompanyService {
         return response;
     }
 
+    @Override
+    public Company findFirstOne() {
+        return findFirst();
+    }
+
     private static void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest){
         Field[] field = tripScheduleRequest.getClass().getFields();
         System.out.println(Arrays.toString(field));
+    }
+
+    private Company findFirst(){
+        Optional<Company> company = companyRepository.findFirst();
+        return company.orElseGet(Company::new);
+
+
     }
 
 

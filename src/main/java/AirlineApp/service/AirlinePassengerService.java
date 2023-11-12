@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import static AirlineApp.dtos.response.ResponseMessage.YOU_SUCCESSFULLY_REGISTERED;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -19,16 +21,18 @@ public class AirlinePassengerService implements PassengerService {
     private final PassengerRepository passengerRepository;
     private final UserRepository userRepository;
 
-    public RegisterPassengerResponse registerPassenger(RegisterPassengerRequest registerPassengerRequest){
+    public RegisterPassengerResponse registerPassenger(RegisterPassengerRequest registerPassengerRequest) {
         Passenger passenger = new Passenger();
-        User user = AppUtils.userMapper (registerPassengerRequest);
+        User user = AppUtils.userMapper(registerPassengerRequest);
         passenger.setUser(user);
         userRepository.save(user);
         passengerRepository.save(passenger);
         RegisterPassengerResponse registerPassengerResponse = new RegisterPassengerResponse();
-        registerPassengerResponse.setMessage("You successfully registered");
+        registerPassengerResponse.setMessage(YOU_SUCCESSFULLY_REGISTERED.getMessage());
         return registerPassengerResponse;
     }
+
+
 
 
 
