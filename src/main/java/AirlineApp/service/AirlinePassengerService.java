@@ -1,15 +1,19 @@
 package AirlineApp.service;
 
+import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.models.Passenger;
 import AirlineApp.data.models.User;
 import AirlineApp.data.repositories.PassengerRepository;
 import AirlineApp.data.repositories.UserRepository;
+import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
 import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static AirlineApp.dtos.response.ResponseMessage.YOU_SUCCESSFULLY_REGISTERED;
 
@@ -32,8 +36,10 @@ public class AirlinePassengerService implements PassengerService {
         return registerPassengerResponse;
     }
 
-
-
+    @Override
+    public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) {
+        return null;
+    }
 
 
 }

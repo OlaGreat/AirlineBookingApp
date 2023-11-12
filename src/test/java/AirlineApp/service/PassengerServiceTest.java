@@ -1,11 +1,16 @@
 package AirlineApp.service;
 
+import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.models.Gender;
+import AirlineApp.dtos.request.BookingRequest;
+import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -28,8 +33,20 @@ public class PassengerServiceTest {
         assertNotNull(registerPassengerResponse);
     }
 
+    @Test
+    void testThatCustomerCanSearchForScheduledFlight(){
+        FlightSearchRequest searchRequest = new FlightSearchRequest();
+
+        List<FlightSchedule> foundFlight = passengerService.searchForFlight(searchRequest);
+    }
+
 //    @Test
 //    void testThatPassengerCanBookFlight(){
-//        passengerService.bookFlight();
+//        BookingRequest request = BuildBookingRequest();
+//        BookingResponse response = passengerService.bookFlight(request);
+//    }
+
+//    private BookingRequest BuildBookingRequest() {
+//
 //    }
 }
