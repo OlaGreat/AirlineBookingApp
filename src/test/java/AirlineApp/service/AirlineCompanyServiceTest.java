@@ -5,10 +5,7 @@ import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.AddFlightRequest;
 import AirlineApp.dtos.request.CompanyRegistrationRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
-import AirlineApp.dtos.response.CompanyRegistrationResponse;
-import AirlineApp.dtos.response.FlightRegistrationResponse;
-import AirlineApp.dtos.response.FlightRemoveResponse;
-import AirlineApp.dtos.response.TripScheduleResponse;
+import AirlineApp.dtos.response.*;
 import AirlineApp.exceptions.AirlineException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -69,6 +66,12 @@ class AirlineCompanyServiceTest {
     void testThatCompanyCanViewListOfThereScheduleAfterAdding() throws AirlineException {
         List<FlightSchedule> scheduledFlight = airlineCompanyService.viewScheduledFlight(1L);
         assertThat(scheduledFlight.size()).isEqualTo(2);
+    }
+
+    @Test void testThatCompanyCanDeleteFlightSchedule() throws AirlineException {
+        DeleteScheduledFlightResponse response = airlineCompanyService.deleteScheduleFlight(1,602);
+        assertThat(response).isNotNull();
+
     }
 
 

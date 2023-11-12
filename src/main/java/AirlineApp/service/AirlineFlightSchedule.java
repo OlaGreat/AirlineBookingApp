@@ -27,10 +27,8 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     }
 
     @Override
-    public FlightSchedule deleteScheduledFlight(long scheduledFlightId) throws ScheduleNotFoundException {
-        FlightSchedule foundFlightSchedule = findScheduledFlightById(scheduledFlightId);
-        flightScheduleRepository.deleteById(scheduledFlightId);
-        return foundFlightSchedule;
+    public void deleteScheduledFlight(FlightSchedule flightScheduleToBeDeleted) {
+        flightScheduleRepository.delete(flightScheduleToBeDeleted);
     }
 
     @Override

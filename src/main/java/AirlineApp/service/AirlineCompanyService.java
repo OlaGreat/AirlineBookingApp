@@ -86,6 +86,7 @@ public class AirlineCompanyService implements CompanyService {
         company.getSchedules().add(scheduledFlight);
         companyRepository.save(company);
 
+
         TripScheduleResponse tripScheduleResponse = new TripScheduleResponse();
         tripScheduleResponse.setMessage(TRIP_SCHEDULE_FOR_FLIGHT.getMessage()+scheduledFlight.getFlightName()+comma+FOR.getMessage()+
                 scheduledFlight.getTakeOffDay()+splash+ scheduledFlight.getTakeOffMonth()+splash+
@@ -104,10 +105,11 @@ public class AirlineCompanyService implements CompanyService {
     @Override
     public DeleteScheduledFlightResponse deleteScheduleFlight(long companyId, long scheduleFlightId) throws AirlineException {
         Company company = findById(companyId);
-        FlightSchedule flightScheduleToDeleted = flightScheduleService.deleteScheduledFlight(scheduleFlightId);
-
+        FlightSchedule flightScheduleToDeleted = flightScheduleService.findById(scheduleFlightId);
         company.getSchedules()
                .remove(flightScheduleToDeleted);
+
+        flightScheduleService.deleteScheduledFlight(flightScheduleToDeleted);
 
         companyRepository.save(company);
 

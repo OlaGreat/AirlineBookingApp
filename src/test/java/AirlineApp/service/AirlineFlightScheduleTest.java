@@ -23,13 +23,6 @@ public class AirlineFlightScheduleTest {
         assertThat(flightSchedule).isNotNull();
     }
 
-    @Test
-    void testThatScheduleFlightCanBeDeleted() throws ScheduleNotFoundException {
-        FlightSchedule foundFlightSchedule = flightScheduleService.findById(302);
-        FlightSchedule deletedFlight = flightScheduleService.deleteScheduledFlight(302);
-        assertThat(deletedFlight).isNotNull();
-        assertThat(deletedFlight).isEqualTo(foundFlightSchedule);
-    }
 
     private static TripScheduleRequest buildTripScheduleRequest(){
         TripScheduleRequest request = new TripScheduleRequest();

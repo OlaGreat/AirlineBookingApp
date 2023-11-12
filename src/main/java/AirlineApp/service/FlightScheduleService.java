@@ -7,6 +7,6 @@ import AirlineApp.exceptions.ScheduleNotFoundException;
 public interface FlightScheduleService {
     FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId);
 //    FlightCancellationResponse cancelScheduledFlight(FlightCancellationRequest flightCancellationRequest);
-    FlightSchedule deleteScheduledFlight(long ScheduledFlightId) throws ScheduleNotFoundException;
+    void deleteScheduledFlight(FlightSchedule flightScheduleToBeDeleted);
     FlightSchedule findById(long scheduleId) throws ScheduleNotFoundException;
 }

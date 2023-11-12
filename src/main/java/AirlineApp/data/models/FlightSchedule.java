@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Setter
@@ -52,4 +53,14 @@ public class FlightSchedule {
     private Long companyId;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> passengersEmail;
+
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj.getClass() == this.getClass() ){
+            FlightSchedule schedule = (FlightSchedule) obj;
+            return Objects.equals(this.getScheduleId(), schedule.getScheduleId());
+        }
+        return false;
+    }
 }
