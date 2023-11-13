@@ -38,6 +38,11 @@ public class AirlinePassengerService implements PassengerService {
 
     @Override
     public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) {
+        String takeOffDay = searchRequest.getTakeOffDay();
+        String takeOffMonth = searchRequest.getTakeOffMonth();
+        String takeOffYear = searchRequest.getTakeOffYear();
+
+
         return null;
     }
 

@@ -1,6 +1,7 @@
 package AirlineApp.service;
 
 import AirlineApp.data.models.FlightSchedule;
+import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.exceptions.AirlineException;
 import AirlineApp.exceptions.ScheduleNotFoundException;
@@ -8,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 @SpringBootTest
 public class AirlineFlightScheduleTest {
@@ -21,6 +24,19 @@ public class AirlineFlightScheduleTest {
         TripScheduleRequest request = buildTripScheduleRequest();
         FlightSchedule flightSchedule = flightScheduleService.scheduleTrip(request,1L);
         assertThat(flightSchedule).isNotNull();
+    }
+
+    @Test
+    void testThatFlightScheduledCanBeSearchFor(){
+        FlightSearchRequest searchRequest = new FlightSearchRequest();
+        searchRequest.setTakeOffDay("11");
+        searchRequest.setTakeOffMonth("November");
+        searchRequest.setTakeOffYear("2023");
+
+        List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
+
+        System.out.println(foundFlight);
+        assertThat(foundFlight.size()).isGreaterThan(0);
     }
 
 

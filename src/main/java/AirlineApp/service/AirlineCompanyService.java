@@ -124,14 +124,16 @@ public class AirlineCompanyService implements CompanyService {
         return findFirst();
     }
 
-    private static void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest){
-        Field[] field = tripScheduleRequest.getClass().getFields();
-        System.out.println(Arrays.toString(field));
+    private static void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest) throws AirlineException {
+        Field[] field = tripScheduleRequest.getClass().getDeclaredFields();
+        if (field.length < 14) throw new AirlineException("yyir");
+
     }
 
     private Company findFirst(){
-        Optional<Company> company = companyRepository.findFirst();
-        return company.orElseGet(Company::new);
+//        Optional<Company> company = companyRepository.findFirst();
+//        return company.orElseGet(Company::new);
+        return null;
 
 
     }

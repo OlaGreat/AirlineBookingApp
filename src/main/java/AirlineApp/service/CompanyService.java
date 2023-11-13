@@ -22,7 +22,7 @@ public interface CompanyService {
 
     DeleteScheduledFlightResponse deleteScheduleFlight(long companyId, long scheduleFlightId) throws AirlineException;
 
-    UpdateScheduledTripResponse updateScheduledFlightTrip(UpdateScheduledFlightTripRequest request);
+//    UpdateScheduledTripResponse updateScheduledFlightTrip(UpdateScheduledFlightTripRequest request);
 
     Company findFirstOne();
 }
