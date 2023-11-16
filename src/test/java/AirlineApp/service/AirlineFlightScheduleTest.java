@@ -20,7 +20,7 @@ public class AirlineFlightScheduleTest {
 
 
     @Test
-    void testThatFlightCanScheduleFlight() throws AirlineException {
+    void testThatFlightCanBeScheduled() throws AirlineException {
         TripScheduleRequest request = buildTripScheduleRequest();
         FlightSchedule flightSchedule = flightScheduleService.scheduleTrip(request,1L);
         assertThat(flightSchedule).isNotNull();
@@ -32,6 +32,7 @@ public class AirlineFlightScheduleTest {
         searchRequest.setTakeOffDay("11");
         searchRequest.setTakeOffMonth("November");
         searchRequest.setTakeOffYear("2023");
+        //TODO CONVERT STRING TOUPPERCASE
 
         List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
 

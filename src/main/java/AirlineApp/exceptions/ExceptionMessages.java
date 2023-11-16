@@ -7,6 +7,7 @@ public enum ExceptionMessages {
     COMPANY_NOT_FOUND("Company not found"),
     FLIGHT_NOT_FOUND("Flight not found in valid flight Number"),
     FLIGHT_ALREADY_EXIST("Flight already exist"),
+    INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE("Your takeoff date is incorrect please check and correct"),
     COMPANY_NOT_REGISTERED("Company is not registered");
 
 

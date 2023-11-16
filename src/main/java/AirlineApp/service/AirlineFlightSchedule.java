@@ -4,14 +4,17 @@ import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.repositories.FlightScheduleRepository;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
+import AirlineApp.exceptions.InvalidDateException;
 import AirlineApp.exceptions.ScheduleNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_SCHEDULE_NOT_FOUND;
+import static AirlineApp.exceptions.ExceptionMessages.INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE;
 import static AirlineApp.util.AppUtils.flightScheduleMapper;
 
 @Service
@@ -23,7 +26,8 @@ public class AirlineFlightSchedule implements FlightScheduleService{
 
 
     @Override
-    public FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId) {
+    public FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId) throws InvalidDateException {
+        verifyTripScheduleRequest(tripScheduleRequest);
         FlightSchedule flightSchedule = flightScheduleMapper(tripScheduleRequest, companyId);
         FlightSchedule savedFlightSchedule = flightScheduleRepository.save(flightSchedule);
 
@@ -62,6 +66,14 @@ public class AirlineFlightSchedule implements FlightScheduleService{
 
         return searchMatch;
     }
+
+    private void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest) throws InvalidDateException {
+        LocalDate year = LocalDate.parse(tripScheduleRequest.getTakeOffYear());
+        LocalDate day = LocalDate.ofEpochDay(Long.parseLong(tripScheduleRequest.getTakeOffDay()));
+        if (year.isBefore(LocalDate.now()) || day.isBefore(LocalDate.now())) throw new InvalidDateException(INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE.getMessage());
+
+    }
+
 
     private FlightSchedule findScheduledFlightById(long scheduledFlightId) throws ScheduleNotFoundException {
         FlightSchedule foundScheduledFlight = flightScheduleRepository.findById(scheduledFlightId)

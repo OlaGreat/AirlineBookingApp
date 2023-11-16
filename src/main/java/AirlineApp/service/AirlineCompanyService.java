@@ -82,6 +82,8 @@ public class AirlineCompanyService implements CompanyService {
     @Override
     public TripScheduleResponse scheduleFlightTrip(TripScheduleRequest tripScheduleRequest, long companyId) throws AirlineException {
         Company company = findById(companyId);
+        tripScheduleRequest.setTakeOffMonth(tripScheduleRequest.getTakeOffMonth().toUpperCase());
+        tripScheduleRequest.setLandingMonth(tripScheduleRequest.getLandingMonth().toUpperCase());
         FlightSchedule scheduledFlight = flightScheduleService.scheduleTrip(tripScheduleRequest,companyId);
 
         company.getSchedules().add(scheduledFlight);
@@ -134,8 +136,6 @@ public class AirlineCompanyService implements CompanyService {
 //        Optional<Company> company = companyRepository.findFirst();
 //        return company.orElseGet(Company::new);
         return null;
-
-
     }
 
 

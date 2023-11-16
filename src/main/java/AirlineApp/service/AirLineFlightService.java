@@ -45,7 +45,6 @@ public class AirLineFlightService implements FlightService {
 
     @Override
     public void deleteFlight(String flightNumber) throws FlightNotFoundException {
-        System.out.println("------------------>>> ");
         Flight flight = findByFlightNumber(flightNumber);
         flightRepository.delete(flight);
 
