@@ -51,7 +51,7 @@ public class AirlineFlightScheduleTest {
         request.setFlightPriceEconomyClass("380");
         request.setFlightPriceBusinessClass("700");
         request.setTakeOffMonth("November");
-        request.setTakeOffDay("11");
+        request.setTakeOffDay("20");
         request.setTakeOffYear("2023");
         request.setTakeOffTime("22:30");
         request.setLandingDay("12");

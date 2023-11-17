@@ -13,6 +13,7 @@ public class AppUtils {
     public static String comma = ", ";
     public static String splash="/";
     public static String space =" ";
+    public static String dash = "-";
 
 
     public static List<Destination> destination (List<String> destinations){
@@ -43,5 +44,16 @@ public class AppUtils {
         flightSchedule.setFlightType(FlightType.valueOf(tripScheduleRequest.getFlightType().toUpperCase()));
         BeanUtils.copyProperties(tripScheduleRequest, flightSchedule);
         return flightSchedule;
+    }
+
+    public static String processDate(String day, String month, String year) {
+        StringBuilder date = new StringBuilder();
+        date.append(year)
+          .append(dash)
+          .append(month)
+          .append(dash)
+          .append(day);
+
+        return String.valueOf(date);
     }
 }

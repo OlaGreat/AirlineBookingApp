@@ -6,16 +6,17 @@ import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.exceptions.InvalidDateException;
 import AirlineApp.exceptions.ScheduleNotFoundException;
+import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_SCHEDULE_NOT_FOUND;
 import static AirlineApp.exceptions.ExceptionMessages.INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE;
-import static AirlineApp.util.AppUtils.flightScheduleMapper;
+import static AirlineApp.util.AppUtils.*;
 
 @Service
 @AllArgsConstructor
@@ -68,11 +69,16 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     }
 
     private void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest) throws InvalidDateException {
-        LocalDate year = LocalDate.parse(tripScheduleRequest.getTakeOffYear());
-        LocalDate day = LocalDate.ofEpochDay(Long.parseLong(tripScheduleRequest.getTakeOffDay()));
-        if (year.isBefore(LocalDate.now()) || day.isBefore(LocalDate.now())) throw new InvalidDateException(INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE.getMessage());
+        String day = tripScheduleRequest.getTakeOffDay();
+        String month = tripScheduleRequest.getTakeOffMonth();
+        String year = tripScheduleRequest.getTakeOffYear();
+        String date = processDate(day, month, year);
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MMMM-dd");
+        LocalDate takeOffDate = LocalDate.parse(date, formatDate);
+        if (takeOffDate.isBefore(LocalDate.now())) throw new InvalidDateException(INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE.getMessage());
 
     }
+
 
 
     private FlightSchedule findScheduledFlightById(long scheduledFlightId) throws ScheduleNotFoundException {
