@@ -4,6 +4,7 @@ import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.exceptions.AirlineException;
+import AirlineApp.exceptions.InvalidDateException;
 import AirlineApp.exceptions.ScheduleNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,15 @@ public class AirlineFlightScheduleTest {
     }
 
     @Test
-    void testThatFlightScheduledCanBeSearchFor(){
+    void testThatFlightScheduledCanBeSearchFor() throws InvalidDateException {
         FlightSearchRequest searchRequest = new FlightSearchRequest();
-        searchRequest.setTakeOffDay("11");
+        searchRequest.setTakeOffDay("18");
         searchRequest.setTakeOffMonth("November");
         searchRequest.setTakeOffYear("2023");
-        //TODO CONVERT STRING TOUPPERCASE
 
         List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
+        foundFlight.forEach(System.out::println);
 
-        System.out.println(foundFlight);
         assertThat(foundFlight.size()).isGreaterThan(0);
     }
 
@@ -51,9 +51,9 @@ public class AirlineFlightScheduleTest {
         request.setFlightPriceEconomyClass("380");
         request.setFlightPriceBusinessClass("700");
         request.setTakeOffMonth("November");
-        request.setTakeOffDay("20");
+        request.setTakeOffDay("30");
         request.setTakeOffYear("2023");
-        request.setTakeOffTime("22:30");
+        request.setTakeOffTime("17:55");
         request.setLandingDay("12");
         request.setLandingMonth("November");
         request.setLandingYear("2023");

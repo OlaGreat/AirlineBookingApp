@@ -8,6 +8,7 @@ import AirlineApp.data.repositories.UserRepository;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
+import AirlineApp.exceptions.InvalidDateException;
 import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static AirlineApp.dtos.response.ResponseMessage.YOU_SUCCESSFULLY_REGISTERED;
+import static AirlineApp.util.AppUtils.verifyRequestDate;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +26,8 @@ public class AirlinePassengerService implements PassengerService {
 
     private final PassengerRepository passengerRepository;
     private final UserRepository userRepository;
+
+    private final FlightScheduleService flightScheduleService;
 
     public RegisterPassengerResponse registerPassenger(RegisterPassengerRequest registerPassengerRequest) {
         Passenger passenger = new Passenger();
@@ -37,14 +41,11 @@ public class AirlinePassengerService implements PassengerService {
     }
 
     @Override
-    public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) {
-        String takeOffDay = searchRequest.getTakeOffDay();
-        String takeOffMonth = searchRequest.getTakeOffMonth();
-        String takeOffYear = searchRequest.getTakeOffYear();
-
-
-        return null;
+    public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException {
+        List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
+        return foundFlight;
     }
+
 
 
 }

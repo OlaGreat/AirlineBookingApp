@@ -6,6 +6,7 @@ import AirlineApp.dtos.request.BookingRequest;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
+import AirlineApp.exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,12 +36,20 @@ public class PassengerServiceTest {
     }
 
     @Test
-    void testThatCustomerCanSearchForScheduledFlight(){
-        FlightSearchRequest searchRequest = new FlightSearchRequest();
-
-        List<FlightSchedule> foundFlight = passengerService.searchForFlight(searchRequest);
+    void testThatCustomerCanSearchForScheduledFlight() throws InvalidDateException {
+        FlightSearchRequest searchRequest = buildFlightSearch();
+           List<FlightSchedule> foundFlight = passengerService.searchForFlight(searchRequest);
         assertThat(foundFlight.size()).isGreaterThan(1);
     }
+
+    private FlightSearchRequest buildFlightSearch() {
+        FlightSearchRequest request = new FlightSearchRequest();
+        request.setTakeOffYear("2023");
+        request.setTakeOffMonth("11");
+        request.setTakeOffDay("17");
+        return request;
+    }
+
 
 //    @Test
 //    void testThatPassengerCanBookFlight(){

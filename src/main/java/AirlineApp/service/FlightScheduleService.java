@@ -14,5 +14,5 @@ public interface FlightScheduleService {
     void deleteScheduledFlight(FlightSchedule flightScheduleToBeDeleted);
     FlightSchedule findById(long scheduleId) throws ScheduleNotFoundException;
 
-    List<FlightSchedule> searchForFlight (FlightSearchRequest searchRequest);
+    List<FlightSchedule> searchForFlight (FlightSearchRequest searchRequest) throws InvalidDateException;
 }

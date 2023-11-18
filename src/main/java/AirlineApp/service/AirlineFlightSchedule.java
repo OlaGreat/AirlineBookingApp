@@ -6,16 +6,15 @@ import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.exceptions.InvalidDateException;
 import AirlineApp.exceptions.ScheduleNotFoundException;
-import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_SCHEDULE_NOT_FOUND;
-import static AirlineApp.exceptions.ExceptionMessages.INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE;
 import static AirlineApp.util.AppUtils.*;
 
 @Service
@@ -28,7 +27,7 @@ public class AirlineFlightSchedule implements FlightScheduleService{
 
     @Override
     public FlightSchedule scheduleTrip(TripScheduleRequest tripScheduleRequest, long companyId) throws InvalidDateException {
-        verifyTripScheduleRequest(tripScheduleRequest);
+        verifyRequestDate(tripScheduleRequest.getTakeOffDay(), tripScheduleRequest.getTakeOffMonth(), tripScheduleRequest.getTakeOffYear());
         FlightSchedule flightSchedule = flightScheduleMapper(tripScheduleRequest, companyId);
         FlightSchedule savedFlightSchedule = flightScheduleRepository.save(flightSchedule);
 
@@ -48,10 +47,11 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     }
 
     @Override
-    public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) {
-        String takeOffDay = searchRequest.getTakeOffDay().toUpperCase();
+    public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException {
+        String takeOffDay = searchRequest.getTakeOffDay();
         String takeOffMonth = searchRequest.getTakeOffMonth().toUpperCase();
-        String takeOffYear = searchRequest.getTakeOffYear().toUpperCase();
+        String takeOffYear = searchRequest.getTakeOffYear();
+        verifyRequestDate(takeOffDay, searchRequest.getTakeOffMonth(), takeOffYear);
 
        List<FlightSchedule> foundSchedule = fetchAndFilterFlightSchedule(takeOffDay, takeOffMonth, takeOffYear);
 
@@ -61,23 +61,20 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     private List<FlightSchedule> fetchAndFilterFlightSchedule(String takeOffDay, String takeOffMonth, String takeOffYear){
         List<FlightSchedule> allSchedule = flightScheduleRepository.findAll();
         List<FlightSchedule> searchMatch = allSchedule.stream()
-                .filter(schedule -> schedule.getTakeOffDay().equals(takeOffDay)
-                        && schedule.getTakeOffMonth().equals(takeOffMonth)
-                        && schedule.getTakeOffYear().equals(takeOffYear)).toList();
+                .filter(schedule -> schedule.getTakeOffDay().equalsIgnoreCase(takeOffDay)
+                        && schedule.getTakeOffMonth().equalsIgnoreCase(takeOffMonth)
+                        && schedule.getTakeOffYear().equalsIgnoreCase(takeOffYear)
+                        && LocalTime.now().plusMinutes(thirtyMinute)
+                        .isBefore(LocalTime.parse(schedule.getTakeOffTime()))
+                        && schedule.getPassengersEmail().size() < schedule.getFlightCapacity()
+                ).toList();
 
         return searchMatch;
     }
 
-    private void verifyTripScheduleRequest(TripScheduleRequest tripScheduleRequest) throws InvalidDateException {
-        String day = tripScheduleRequest.getTakeOffDay();
-        String month = tripScheduleRequest.getTakeOffMonth();
-        String year = tripScheduleRequest.getTakeOffYear();
-        String date = processDate(day, month, year);
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MMMM-dd");
-        LocalDate takeOffDate = LocalDate.parse(date, formatDate);
-        if (takeOffDate.isBefore(LocalDate.now())) throw new InvalidDateException(INVALID_TAKE_OFF_DATE_PLEASE_CHECK_AND_CORRECT_DATE.getMessage());
 
-    }
+
+
 
 
 

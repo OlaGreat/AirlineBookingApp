@@ -3,17 +3,24 @@ package AirlineApp.util;
 import AirlineApp.data.models.*;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
+import AirlineApp.exceptions.InvalidDateException;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static AirlineApp.exceptions.ExceptionMessages.INVALID_DATE_DATE_CANNOT_BE_BEFORE_TODAY_DATE_PLEASE_CHECK_AND_CORRECT_DATE;
 
 public class AppUtils {
     public static String comma = ", ";
     public static String splash="/";
     public static String space =" ";
     public static String dash = "-";
+
+    public static Long thirtyMinute = 30L;
 
 
     public static List<Destination> destination (List<String> destinations){
@@ -56,4 +63,13 @@ public class AppUtils {
 
         return String.valueOf(date);
     }
+
+    public static void verifyRequestDate(String day, String month, String year) throws InvalidDateException {
+        String date = processDate(day, month, year);
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MMMM-dd");
+        LocalDate inputDate = LocalDate.parse(date, formatDate);
+        if (inputDate.isBefore(LocalDate.now())) throw new InvalidDateException(INVALID_DATE_DATE_CANNOT_BE_BEFORE_TODAY_DATE_PLEASE_CHECK_AND_CORRECT_DATE.getMessage());
+
+    }
 }
+
