@@ -15,4 +15,6 @@ public interface FlightScheduleService {
     FlightSchedule findById(long scheduleId) throws ScheduleNotFoundException;
 
     List<FlightSchedule> searchForFlight (FlightSearchRequest searchRequest) throws InvalidDateException;
+
+    List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest);
 }

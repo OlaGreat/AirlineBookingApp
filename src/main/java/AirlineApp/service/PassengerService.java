@@ -12,4 +12,7 @@ public interface PassengerService {
     RegisterPassengerResponse registerPassenger(RegisterPassengerRequest registerPassengerRequest);
 
     List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException;
+
+    List<FlightSchedule> searchForFlightExtend(FlightSearchRequest searchRequest);
+
 }

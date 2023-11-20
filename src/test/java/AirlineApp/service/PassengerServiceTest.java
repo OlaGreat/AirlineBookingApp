@@ -47,6 +47,7 @@ public class PassengerServiceTest {
         request.setTakeOffYear("2023");
         request.setTakeOffMonth("11");
         request.setTakeOffDay("17");
+
         return request;
     }
 

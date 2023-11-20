@@ -58,6 +58,12 @@ public class AirlineFlightSchedule implements FlightScheduleService{
        return foundSchedule;
     }
 
+    @Override
+    public List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) {
+
+        return null;
+    }
+
     private List<FlightSchedule> fetchAndFilterFlightSchedule(String takeOffDay, String takeOffMonth, String takeOffYear){
         List<FlightSchedule> allSchedule = flightScheduleRepository.findAll();
         List<FlightSchedule> searchMatch = allSchedule.stream()

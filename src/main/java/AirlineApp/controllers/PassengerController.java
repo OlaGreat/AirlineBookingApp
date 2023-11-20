@@ -27,10 +27,10 @@ public class PassengerController {
     }
 
     //TODO TEST WITH POSTMAN
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<List<FlightSchedule>> searchFlight(@RequestBody FlightSearchRequest request) throws InvalidDateException {
-         List<FlightSchedule> foundFlight = passengerService.searchForFlight(request);
-         return ResponseEntity.status(HttpStatus.OK).body(foundFlight);
+        List<FlightSchedule> foundFlight = passengerService.searchForFlight(request);
+        return ResponseEntity.status(HttpStatus.OK).body(foundFlight);
     }
 
 }
