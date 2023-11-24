@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_SCHEDULE_NOT_FOUND;
 import static AirlineApp.util.AppUtils.*;
@@ -59,10 +62,68 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     }
 
     @Override
-    public List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) {
+    public List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) throws InvalidDateException {
+        List<FlightSchedule> allFlight = flightScheduleRepository.findAll();
+
+        String takeOffDay = searchRequest.getTakeOffDay();
+        String takeOffMonth = searchRequest.getTakeOffMonth().toUpperCase();
+        String takeOffYear = searchRequest.getTakeOffYear();
+        verifyRequestDate(takeOffDay, searchRequest.getTakeOffMonth(), takeOffYear);
+
+        Month month = Month.valueOf(takeOffMonth);
+        int monthLength = month.length(isLeapYear(Integer.parseInt(takeOffYear)));
+        int overLappingDays = monthLength - Integer.parseInt(takeOffDay);
+        if ( overLappingDays < 10){
+            int overLap = 10 - overLappingDays;
+            Month nextMonth = month.plus(1);
+        }
+
+        else {
+            int day = Integer.parseInt(takeOffDay) + 10;
+
+            List<Integer> days = IntStream.rangeClosed(Integer.parseInt(takeOffDay), day).boxed().toList();
+            allFlight.stream()
+                    .filter(flightSchedule -> flightSchedule.getTakeOffDay().equalsIgnoreCase(days.toString()));
+
+
+        }
+
+
+
+
+
+//        allFlight.stream()
+
+
+
+
+
+
 
         return null;
     }
+
+
+
+
+
+//    public static void main(String[] args) {
+//       List<Integer> num = IntStream.rangeClosed(1, 10).boxed().toList();
+//
+//       num.forEach(System.out::println);
+//
+////        Month m = Month.valueOf("NOVEMBER");
+////        System.out.println(m.maxLength());
+////        System.out.println(m.plus(1));
+////
+////        System.out.println(isLeapYear(2100));
+//    }
+
+    private static boolean isLeapYear(int year){
+        boolean  isLeapYear = year%4 == 0 && year%100!=0 || year%400==0;
+        return isLeapYear;
+    }
+
 
     private List<FlightSchedule> fetchAndFilterFlightSchedule(String takeOffDay, String takeOffMonth, String takeOffYear){
         List<FlightSchedule> allSchedule = flightScheduleRepository.findAll();
