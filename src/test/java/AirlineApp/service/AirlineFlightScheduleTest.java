@@ -30,11 +30,24 @@ public class AirlineFlightScheduleTest {
     @Test
     void testThatFlightScheduledCanBeSearchFor() throws InvalidDateException {
         FlightSearchRequest searchRequest = new FlightSearchRequest();
-        searchRequest.setTakeOffDay("18");
+        searchRequest.setTakeOffDay("30");
         searchRequest.setTakeOffMonth("November");
         searchRequest.setTakeOffYear("2023");
 
         List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
+        foundFlight.forEach(System.out::println);
+
+        assertThat(foundFlight.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testThatFlightCanBeSearchWithAdditionalDays(){
+        FlightSearchRequest request = new FlightSearchRequest();
+        request.setTakeOffDay("30");
+        request.setTakeOffMonth("November");
+        request.setTakeOffYear("2023");
+
+        List<FlightSchedule> foundFlight = flightScheduleService.searchForFlightModified(request);
         foundFlight.forEach(System.out::println);
 
         assertThat(foundFlight.size()).isGreaterThan(0);

@@ -2,7 +2,6 @@ package AirlineApp.service;
 
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.models.Gender;
-import AirlineApp.dtos.request.BookingRequest;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
@@ -35,6 +34,7 @@ public class PassengerServiceTest {
         assertNotNull(registerPassengerResponse);
     }
 
+
     @Test
     void testThatCustomerCanSearchForScheduledFlight() throws InvalidDateException {
         FlightSearchRequest searchRequest = buildFlightSearch();
@@ -45,8 +45,8 @@ public class PassengerServiceTest {
     private FlightSearchRequest buildFlightSearch() {
         FlightSearchRequest request = new FlightSearchRequest();
         request.setTakeOffYear("2023");
-        request.setTakeOffMonth("11");
-        request.setTakeOffDay("17");
+        request.setTakeOffMonth("November");
+        request.setTakeOffDay("30");
 
         return request;
     }
