@@ -51,7 +51,7 @@ public class AirlineFlightSchedule implements FlightScheduleService{
 
     @Override
     public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException {
-        String takeOffDay = searchRequest.getTakeOffDay();
+        int takeOffDay = searchRequest.getTakeOffDay();
         String takeOffMonth = searchRequest.getTakeOffMonth().toUpperCase();
         String takeOffYear = searchRequest.getTakeOffYear();
         verifyRequestDate(takeOffDay, searchRequest.getTakeOffMonth(), takeOffYear);

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FlightSearchRequest {
-    private String takeOffDay;
+    private int takeOffDay;
     private String takeOffMonth;
     private String takeOffYear;
 }

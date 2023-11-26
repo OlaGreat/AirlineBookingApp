@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
@@ -41,7 +42,7 @@ public class AirlineFlightScheduleTest {
     }
 
     @Test
-    void testThatFlightCanBeSearchWithAdditionalDays(){
+    void testThatFlightCanBeSearchWithAdditionalDays() throws InvalidDateException {
         FlightSearchRequest request = new FlightSearchRequest();
         request.setTakeOffDay("30");
         request.setTakeOffMonth("November");
@@ -52,6 +53,7 @@ public class AirlineFlightScheduleTest {
 
         assertThat(foundFlight.size()).isGreaterThan(0);
     }
+
 
 
     private static TripScheduleRequest buildTripScheduleRequest(){

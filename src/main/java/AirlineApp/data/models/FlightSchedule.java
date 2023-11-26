@@ -34,7 +34,7 @@ public class FlightSchedule {
     @Column(nullable = false)
     private String takeOffMonth;
     @Column(nullable = false)
-    private String takeOffDay;
+    private int takeOffDay;
     @Column(nullable = false)
     private String takeOffYear;
     @Column(nullable = false)
