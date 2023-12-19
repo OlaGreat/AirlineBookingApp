@@ -45,8 +45,8 @@ public class PassengerServiceTest {
     private FlightSearchRequest buildFlightSearch() {
         FlightSearchRequest request = new FlightSearchRequest();
         request.setTakeOffYear("2023");
-        request.setTakeOffMonth("November");
-        request.setTakeOffDay("30");
+        request.setTakeOffMonth("December");
+        request.setTakeOffDay(30);
 
         return request;
     }

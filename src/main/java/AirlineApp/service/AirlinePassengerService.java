@@ -46,11 +46,11 @@ public class AirlinePassengerService implements PassengerService {
         return foundFlight;
     }
 
-    @Override
-    public List<FlightSchedule> searchForFlightExtend(FlightSearchRequest searchRequest) throws InvalidDateException {
-        List<FlightSchedule> foundFlight = flightScheduleService.searchForFlightModified(searchRequest);
-        return foundFlight;
-    }
+//    @Override
+//    public List<FlightSchedule> searchForFlightExtend(FlightSearchRequest searchRequest) throws InvalidDateException {
+//        List<FlightSchedule> foundFlight = flightScheduleService.searchForFlightModified(searchRequest);
+//        return foundFlight;
+//    }
 
 
 }

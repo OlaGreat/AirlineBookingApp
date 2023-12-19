@@ -1,7 +1,5 @@
 package AirlineApp.dtos.request;
 
-import AirlineApp.data.models.Destination;
-import AirlineApp.data.models.FlightType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,7 +17,7 @@ public class TripScheduleRequest {
     private String flightPriceEconomyClass;
     private String takeOffYear;
     private String takeOffMonth;
-    private String takeOffDay;
+    private int takeOffDay;
     private String takeOffTime;
     private String landingYear;
     private String landingMonth;

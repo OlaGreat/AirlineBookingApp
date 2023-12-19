@@ -53,7 +53,7 @@ public class AppUtils {
         return flightSchedule;
     }
 
-    public static String processDate(String day, String month, String year) {
+    public static String processDate(int day, String month, String year) {
         StringBuilder date = new StringBuilder();
         date.append(year)
           .append(dash)
@@ -64,7 +64,7 @@ public class AppUtils {
         return String.valueOf(date);
     }
 
-    public static void verifyRequestDate(String day, String month, String year) throws InvalidDateException {
+    public static void verifyRequestDate(int day, String month, String year) throws InvalidDateException {
         String date = processDate(day, month, year);
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MMMM-dd");
         LocalDate inputDate = LocalDate.parse(date, formatDate);

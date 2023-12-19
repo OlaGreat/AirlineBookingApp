@@ -16,5 +16,5 @@ public interface FlightScheduleService {
 
     List<FlightSchedule> searchForFlight (FlightSearchRequest searchRequest) throws InvalidDateException;
 
-    List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) throws InvalidDateException;
+//    List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) throws InvalidDateException;
 }

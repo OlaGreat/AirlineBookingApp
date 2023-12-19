@@ -9,13 +9,8 @@ import AirlineApp.exceptions.ScheduleNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static AirlineApp.dtos.response.ResponseMessage.FLIGHT_SCHEDULE_NOT_FOUND;
 import static AirlineApp.util.AppUtils.*;
@@ -61,47 +56,33 @@ public class AirlineFlightSchedule implements FlightScheduleService{
        return foundSchedule;
     }
 
-    @Override
-    public List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) throws InvalidDateException {
-        List<FlightSchedule> allFlight = flightScheduleRepository.findAll();
-
-        String takeOffDay = searchRequest.getTakeOffDay();
-        String takeOffMonth = searchRequest.getTakeOffMonth().toUpperCase();
-        String takeOffYear = searchRequest.getTakeOffYear();
-        verifyRequestDate(takeOffDay, searchRequest.getTakeOffMonth(), takeOffYear);
-
-        Month month = Month.valueOf(takeOffMonth);
-        int monthLength = month.length(isLeapYear(Integer.parseInt(takeOffYear)));
-        int overLappingDays = monthLength - Integer.parseInt(takeOffDay);
-        if ( overLappingDays < 10){
-            int overLap = 10 - overLappingDays;
-            Month nextMonth = month.plus(1);
-        }
-
-        else {
-            int day = Integer.parseInt(takeOffDay) + 10;
-
-            List<Integer> days = IntStream.rangeClosed(Integer.parseInt(takeOffDay), day).boxed().toList();
-            allFlight.stream()
-                    .filter(flightSchedule -> flightSchedule.getTakeOffDay().equalsIgnoreCase(days.toString()));
-
-
-        }
-
-
-
-
-
-//        allFlight.stream()
-
-
-
-
-
-
-
-        return null;
-    }
+//    @Override
+//    public List<FlightSchedule> searchForFlightModified(FlightSearchRequest searchRequest) throws InvalidDateException {
+//        List<FlightSchedule> allFlight = flightScheduleRepository.findAll();
+//
+//        int takeOffDay = searchRequest.getTakeOffDay();
+//        String takeOffMonth = searchRequest.getTakeOffMonth().toUpperCase();
+//        String takeOffYear = searchRequest.getTakeOffYear();
+//        verifyRequestDate(takeOffDay, searchRequest.getTakeOffMonth(), takeOffYear);
+//
+//        Month month = Month.valueOf(takeOffMonth);
+//        int monthLength = month.length(isLeapYear(Integer.parseInt(takeOffYear)));
+//        int overLappingDays = monthLength - takeOffDay;
+//        if ( overLappingDays < 10){
+//            int overLap = 10 - overLappingDays;
+//            Month nextMonth = month.plus(1);
+//        }
+//
+//        else {
+//            int day = takeOffDay + 10;
+//
+//
+//        }
+//
+////        allFlight.stream()
+//
+//        return null;
+//    }
 
 
 
@@ -125,12 +106,12 @@ public class AirlineFlightSchedule implements FlightScheduleService{
     }
 
 
-    private List<FlightSchedule> fetchAndFilterFlightSchedule(String takeOffDay, String takeOffMonth, String takeOffYear){
+    private List<FlightSchedule> fetchAndFilterFlightSchedule(int takeOffDay, String takeOffMonth, String takeOffYear){
         List<FlightSchedule> allSchedule = flightScheduleRepository.findAll();
         List<FlightSchedule> searchMatch = allSchedule.stream()
-                .filter(schedule -> schedule.getTakeOffDay().equalsIgnoreCase(takeOffDay)
+                .filter(schedule -> schedule.getTakeOffYear().equalsIgnoreCase(takeOffYear)
                         && schedule.getTakeOffMonth().equalsIgnoreCase(takeOffMonth)
-                        && schedule.getTakeOffYear().equalsIgnoreCase(takeOffYear)
+                        && schedule.getTakeOffDay() >= takeOffDay
                         && LocalTime.now().plusMinutes(thirtyMinute)
                         .isBefore(LocalTime.parse(schedule.getTakeOffTime()))
                         && schedule.getPassengersEmail().size() < schedule.getFlightCapacity()

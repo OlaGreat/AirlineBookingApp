@@ -13,6 +13,6 @@ public interface PassengerService {
 
     List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException;
 
-    List<FlightSchedule> searchForFlightExtend(FlightSearchRequest searchRequest) throws InvalidDateException;
+//    List<FlightSchedule> searchForFlightExtend(FlightSearchRequest searchRequest) throws InvalidDateException;
 
 }
