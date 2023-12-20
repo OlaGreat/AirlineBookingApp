@@ -28,6 +28,7 @@ public class AirlineFlightSchedule implements FlightScheduleService{
         verifyRequestDate(tripScheduleRequest.getTakeOffDay(), tripScheduleRequest.getTakeOffMonth(), tripScheduleRequest.getTakeOffYear());
         FlightSchedule flightSchedule = flightScheduleMapper(tripScheduleRequest, companyId);
         FlightSchedule savedFlightSchedule = flightScheduleRepository.save(flightSchedule);
+        System.out.println(savedFlightSchedule);
 
        return savedFlightSchedule;
     }

@@ -32,7 +32,7 @@ public class AirlineFlightScheduleTest {
     void testThatFlightScheduledCanBeSearchFor() throws InvalidDateException {
         FlightSearchRequest searchRequest = new FlightSearchRequest();
         searchRequest.setTakeOffDay(30);
-        searchRequest.setTakeOffMonth("November");
+        searchRequest.setTakeOffMonth("December");
         searchRequest.setTakeOffYear("2023");
 
         List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
@@ -65,12 +65,12 @@ public class AirlineFlightScheduleTest {
         request.setFlightName("Ro");
         request.setFlightPriceEconomyClass("380");
         request.setFlightPriceBusinessClass("700");
-        request.setTakeOffMonth("November");
+        request.setTakeOffMonth("December");
         request.setTakeOffDay(30);
         request.setTakeOffYear("2023");
         request.setTakeOffTime("17:55");
         request.setLandingDay("12");
-        request.setLandingMonth("November");
+        request.setLandingMonth("December");
         request.setLandingYear("2023");
         request.setLandingTime("17:30");
         return request;
