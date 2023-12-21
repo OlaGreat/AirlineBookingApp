@@ -1,3 +1,4 @@
+
 package AirlineApp.util;
 
 import AirlineApp.data.models.*;
@@ -18,6 +19,8 @@ public class AppUtils {
     public static final String USER = "user";
     public static final String APP_NAME = "JpBookings";
     public static final String SECRET_KEY = "JpBookingsSecret";
+    public static final String BEARER = "Bearer";
+    public static final int SEVEN = 7;
     public static String comma = ", ";
     public static String splash="/";
     public static String space =" ";

@@ -8,6 +8,8 @@ public enum ExceptionMessages {
     FLIGHT_NOT_FOUND("Flight not found in valid flight Number"),
     FLIGHT_ALREADY_EXIST("Flight already exist"),
     INVALID_DATE_DATE_CANNOT_BE_BEFORE_TODAY_DATE_PLEASE_CHECK_AND_CORRECT_DATE("Your date is before today's date, please check and correct"),
+    VERIFICATION_FAILED_EXCEPTION("Token verification Failed"),
+    INVALID_AUTHORIZATION_HEADER("Invalid Authorization header"),
     COMPANY_NOT_REGISTERED("Company is not registered");
 
 
