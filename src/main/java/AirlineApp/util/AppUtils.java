@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 import static AirlineApp.exceptions.ExceptionMessages.INVALID_DATE_DATE_CANNOT_BE_BEFORE_TODAY_DATE_PLEASE_CHECK_AND_CORRECT_DATE;
 
 public class AppUtils {
+    public static final String USER = "user";
+    public static final String APP_NAME = "JpBookings";
+    public static final String SECRET_KEY = "JpBookingsSecret";
     public static String comma = ", ";
     public static String splash="/";
     public static String space =" ";
