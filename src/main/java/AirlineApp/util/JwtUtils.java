@@ -4,11 +4,13 @@ import AirlineApp.exceptions.UnauthorizedException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.Instant;
+import java.util.Map;
 
 import static AirlineApp.exceptions.ExceptionMessages.INVALID_AUTHORIZATION_HEADER;
 import static AirlineApp.exceptions.ExceptionMessages.VERIFICATION_FAILED_EXCEPTION;
@@ -45,8 +47,20 @@ public class JwtUtils {
         else throw new UnauthorizedException(INVALID_AUTHORIZATION_HEADER.getMessage());
     }
 
+    public static String extractUserEmailFrom(String token){
+        var claim = JWT.decode(token).getClaim(USER);
+        String userEmail = (String) claim.asMap().get(USER);
+        return userEmail;
+    }
 
+    public static String extractUserEmailFrom2(String token) throws UnauthorizedException {
+        DecodedJWT decodedJWT = JWT.decode(token);
 
+        Map<String, Claim> claimMap = decodedJWT.getClaims();
+        if(claimMap.containsKey(USER)){
+            return claimMap.get(USER).asString();
+        }
+        throw new UnauthorizedException(VERIFICATION_FAILED_EXCEPTION.getMessage());
 
-
+    }
 }
