@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 
 import static AirlineApp.exceptions.ExceptionMessages.INVALID_AUTHORIZATION_HEADER;
@@ -22,6 +23,15 @@ public class JwtUtils {
     public static String generateVerificationToken(String userEmail) {
         String token = JWT.create()
                 .withClaim(USER, userEmail)
+                .withIssuer(APP_NAME)
+                .withExpiresAt(Instant.now().plusSeconds(3600))
+                .sign(Algorithm.HMAC512(SECRET_KEY));
+        return token;
+    }
+
+    public static String generateAccessToken(List<String> authorities) {
+        String token = JWT.create()
+                .withClaim(ROLES, authorities)
                 .withIssuer(APP_NAME)
                 .withExpiresAt(Instant.now().plusSeconds(3600))
                 .sign(Algorithm.HMAC512(SECRET_KEY));
@@ -63,4 +73,6 @@ public class JwtUtils {
         throw new UnauthorizedException(VERIFICATION_FAILED_EXCEPTION.getMessage());
 
     }
+
+
 }

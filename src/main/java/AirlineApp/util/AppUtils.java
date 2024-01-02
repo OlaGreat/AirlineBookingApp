@@ -21,6 +21,7 @@ public class AppUtils {
     public static final String SECRET_KEY = "JpBookingsSecret";
     public static final String BEARER = "Bearer";
     public static final int SEVEN = 7;
+    public static final String ROLES = "roles";
     public static String comma = ", ";
     public static String splash="/";
     public static String space =" ";
