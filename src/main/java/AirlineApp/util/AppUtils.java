@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +78,10 @@ public class AppUtils {
         LocalDate inputDate = LocalDate.parse(date, formatDate);
         if (inputDate.isBefore(LocalDate.now())) throw new InvalidDateException(INVALID_DATE_DATE_CANNOT_BE_BEFORE_TODAY_DATE_PLEASE_CHECK_AND_CORRECT_DATE.getMessage());
 
+    }
+
+    public static List<String> getPublicPath() {
+        return List.of("api/v1/customer", "/register", "api/v1/company", "/login");
     }
 }
 

@@ -21,7 +21,7 @@ public class PassengerController {
 
     private final PassengerService passengerService;
 
-    @PostMapping("/register")
+    @PostMapping
     public Object registerNewPassenger(@RequestBody RegisterPassengerRequest registerPassengerRequest){
         return passengerService.registerPassenger(registerPassengerRequest);
     }
