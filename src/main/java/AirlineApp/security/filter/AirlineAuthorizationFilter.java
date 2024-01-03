@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -38,6 +39,9 @@ public class AirlineAuthorizationFilter extends OncePerRequestFilter {
             DecodedJWT decodedToken =verifier.verify(authorizationToken);
             List<SimpleGrantedAuthority> authorities = decodedToken.getClaim(ROLES).asList(SimpleGrantedAuthority.class);
             Authentication authentication = new UsernamePasswordAuthenticationToken(null, null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            filterChain.doFilter(request, response);
         }
 
     }
