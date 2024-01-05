@@ -10,6 +10,8 @@ public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @OneToOne
     private User user;
 }
