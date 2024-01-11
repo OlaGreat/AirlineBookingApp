@@ -2,10 +2,13 @@ package AirlineApp.service;
 
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.models.Gender;
+import AirlineApp.data.models.Passenger;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
 import AirlineApp.exceptions.InvalidDateException;
+import AirlineApp.exceptions.UserNotFoundException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,6 +52,14 @@ public class PassengerServiceTest {
         request.setTakeOffDay(30);
 
         return request;
+    }
+
+    @Test
+    @DisplayName("Find passenger by email")
+    public void findPassengerByEmail() throws UserNotFoundException {
+        Passenger foundPassenger = passengerService.findByEmail("Olakbjf");
+
+        assertThat(foundPassenger).isNotNull();
     }
 
 

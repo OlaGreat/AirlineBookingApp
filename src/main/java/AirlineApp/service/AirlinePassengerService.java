@@ -9,6 +9,7 @@ import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
 import AirlineApp.exceptions.InvalidDateException;
+import AirlineApp.exceptions.UserNotFoundException;
 import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static AirlineApp.dtos.response.ResponseMessage.USER_WITH_EMAIL_NOT_FOUND;
 import static AirlineApp.dtos.response.ResponseMessage.YOU_SUCCESSFULLY_REGISTERED;
-import static AirlineApp.util.AppUtils.verifyRequestDate;
 
 @Service
 @AllArgsConstructor
@@ -44,6 +45,14 @@ public class AirlinePassengerService implements PassengerService {
     public List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException {
         List<FlightSchedule> foundFlight = flightScheduleService.searchForFlight(searchRequest);
         return foundFlight;
+    }
+
+    @Override
+    public Passenger findByEmail(String email) throws UserNotFoundException {
+        Passenger passenger = passengerRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(
+                String.format(USER_WITH_EMAIL_NOT_FOUND.getMessage(), email)
+        ));
+        return null;
     }
 
 //    @Override
