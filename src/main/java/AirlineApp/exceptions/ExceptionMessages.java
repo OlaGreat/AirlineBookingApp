@@ -11,6 +11,7 @@ public enum ExceptionMessages {
     VERIFICATION_FAILED_EXCEPTION("Token verification Failed"),
     INVALID_AUTHORIZATION_HEADER("Invalid Authorization header"),
     AUTHENTICATION_NOT_SUPPORTED("Authentication not supported"),
+    INVALID_CREDENTIAL_EXCEPTION("Invalid login details"),
     COMPANY_NOT_REGISTERED("Company is not registered");
 
 
