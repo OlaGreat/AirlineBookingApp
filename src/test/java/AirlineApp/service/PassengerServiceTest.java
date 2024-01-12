@@ -3,6 +3,7 @@ package AirlineApp.service;
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.models.Gender;
 import AirlineApp.data.models.Passenger;
+import AirlineApp.data.models.User;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
@@ -57,9 +58,9 @@ public class PassengerServiceTest {
     @Test
     @DisplayName("Find passenger by email")
     public void findPassengerByEmail() throws UserNotFoundException {
-        Passenger foundPassenger = passengerService.findByEmail("Olakbjf");
+        User foundUser = passengerService.findByEmail("Olakbjf");
 
-        assertThat(foundPassenger).isNotNull();
+        assertThat(foundUser).isNotNull();
     }
 
 

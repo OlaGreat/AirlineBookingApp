@@ -2,6 +2,7 @@ package AirlineApp.service;
 
 import AirlineApp.data.models.FlightSchedule;
 import AirlineApp.data.models.Passenger;
+import AirlineApp.data.models.User;
 import AirlineApp.dtos.request.FlightSearchRequest;
 import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.response.RegisterPassengerResponse;
@@ -15,7 +16,7 @@ public interface PassengerService {
 
     List<FlightSchedule> searchForFlight(FlightSearchRequest searchRequest) throws InvalidDateException;
 
-    Passenger findByEmail(String email) throws UserNotFoundException;
+    User findByEmail(String email) throws UserNotFoundException;
 
 //    List<FlightSchedule> searchForFlightExtend(FlightSearchRequest searchRequest) throws InvalidDateException;
 

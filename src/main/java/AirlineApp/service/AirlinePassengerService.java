@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static AirlineApp.data.models.Role.PASSENGER;
 import static AirlineApp.dtos.response.ResponseMessage.USER_WITH_EMAIL_NOT_FOUND;
 import static AirlineApp.dtos.response.ResponseMessage.YOU_SUCCESSFULLY_REGISTERED;
 
@@ -34,6 +35,7 @@ public class AirlinePassengerService implements PassengerService {
         Passenger passenger = new Passenger();
         User user = AppUtils.userMapper(registerPassengerRequest);
         passenger.setUser(user);
+        passenger.setRole(PASSENGER);
         userRepository.save(user);
         passengerRepository.save(passenger);
         RegisterPassengerResponse registerPassengerResponse = new RegisterPassengerResponse();
@@ -48,8 +50,8 @@ public class AirlinePassengerService implements PassengerService {
     }
 
     @Override
-    public Passenger findByEmail(String email) throws UserNotFoundException {
-        Passenger passenger = passengerRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(
+    public User findByEmail(String email) throws UserNotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(
                 String.format(USER_WITH_EMAIL_NOT_FOUND.getMessage(), email)
         ));
         return null;
