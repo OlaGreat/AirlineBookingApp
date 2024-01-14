@@ -1,5 +1,7 @@
 package AirlineApp.security.services;
 
+import AirlineApp.data.models.User;
+import AirlineApp.exceptions.UserNotFoundException;
 import AirlineApp.service.PassengerService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +17,12 @@ public class AirlineUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        
+        try {
+            User userDetails = passengerService.findByEmail(username);
 
-
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
 
         return null;
