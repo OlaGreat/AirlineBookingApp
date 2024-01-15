@@ -2,6 +2,7 @@ package AirlineApp.security.model;
 
 import AirlineApp.data.models.Passenger;
 import AirlineApp.data.models.Role;
+import AirlineApp.data.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,22 +15,22 @@ import java.util.List;
 @AllArgsConstructor
 public class SecureUser implements UserDetails {
 
-    private final Passenger passenger;
+    private final User user;
 
 
     @Override
     public String getPassword() {
-        return passenger.getUser().getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return passenger.getUser().getEmail();
+        return user.getEmail();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Role role = passenger.getRole();
+        Role role = user.getRole();
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority userAuthorities = new SimpleGrantedAuthority(role.name());
@@ -51,5 +52,5 @@ public class SecureUser implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {return passenger.getUser().isActive();}
+    public boolean isEnabled() {return user.isActive();}
 }

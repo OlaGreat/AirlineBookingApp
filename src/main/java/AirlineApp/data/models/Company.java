@@ -28,6 +28,9 @@ public class Company {
 
     private String location;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(value = STRING)
     private List<Destination> routes;

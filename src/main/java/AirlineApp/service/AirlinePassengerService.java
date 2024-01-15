@@ -34,8 +34,9 @@ public class AirlinePassengerService implements PassengerService {
     public RegisterPassengerResponse registerPassenger(RegisterPassengerRequest registerPassengerRequest) {
         Passenger passenger = new Passenger();
         User user = AppUtils.userMapper(registerPassengerRequest);
+        user.setRole(PASSENGER);
         passenger.setUser(user);
-        passenger.setRole(PASSENGER);
+
         userRepository.save(user);
         passengerRepository.save(passenger);
         RegisterPassengerResponse registerPassengerResponse = new RegisterPassengerResponse();
@@ -54,7 +55,7 @@ public class AirlinePassengerService implements PassengerService {
         User user = userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(
                 String.format(USER_WITH_EMAIL_NOT_FOUND.getMessage(), email)
         ));
-        return null;
+        return user;
     }
 
 //    @Override

@@ -46,6 +46,7 @@ public class AppUtils {
         user.setGender(registerPassengerRequest.getGender());
         user.setPhoneNumber(registerPassengerRequest.getPhoneNumber());
         user.setPassword(registerPassengerRequest.getPassword());
+
         return user;
     }
 
