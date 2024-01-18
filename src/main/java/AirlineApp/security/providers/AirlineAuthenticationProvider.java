@@ -1,6 +1,7 @@
 package AirlineApp.security.providers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +21,9 @@ import static AirlineApp.exceptions.ExceptionMessages.INVALID_CREDENTIAL_EXCEPTI
 @Component
 @AllArgsConstructor
 public class AirlineAuthenticationProvider implements AuthenticationProvider {
+
     private UserDetailsService userDetailsService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 

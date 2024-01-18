@@ -1,4 +1,4 @@
-package AirlineApp.security.services;
+package AirlineApp.security;
 
 import AirlineApp.security.filter.AirlineAuthenticationFilter;
 import AirlineApp.security.filter.AirlineAuthorizationFilter;
