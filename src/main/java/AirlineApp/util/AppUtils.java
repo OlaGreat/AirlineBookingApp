@@ -6,6 +6,7 @@ import AirlineApp.dtos.request.RegisterPassengerRequest;
 import AirlineApp.dtos.request.TripScheduleRequest;
 import AirlineApp.exceptions.InvalidDateException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -31,6 +32,8 @@ public class AppUtils {
     public static Long thirtyMinute = 30L;
 
 
+
+
     public static List<Destination> destination (List<String> destinations){
         List<Destination> routes = destinations.stream()
                 .map(destination -> Destination.valueOf(destination.toUpperCase()))
@@ -45,8 +48,6 @@ public class AppUtils {
         user.setEmail(registerPassengerRequest.getEmail());
         user.setGender(registerPassengerRequest.getGender());
         user.setPhoneNumber(registerPassengerRequest.getPhoneNumber());
-        user.setPassword(registerPassengerRequest.getPassword());
-
         return user;
     }
 

@@ -13,6 +13,7 @@ import AirlineApp.exceptions.UserNotFoundException;
 import AirlineApp.util.AppUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,10 +32,15 @@ public class AirlinePassengerService implements PassengerService {
 
     private final FlightScheduleService flightScheduleService;
 
+    private final PasswordEncoder passwordEncoder;
+
     public RegisterPassengerResponse registerPassenger(RegisterPassengerRequest registerPassengerRequest) {
+        String passengerPassword = registerPassengerRequest.getPassword();
         Passenger passenger = new Passenger();
         User user = AppUtils.userMapper(registerPassengerRequest);
         user.setRole(PASSENGER);
+        String passwordHash  = passwordEncoder.encode(passengerPassword);
+        user.setPassword(passwordHash);
         passenger.setUser(user);
 
         userRepository.save(user);

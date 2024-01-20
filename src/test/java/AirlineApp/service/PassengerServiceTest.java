@@ -42,11 +42,12 @@ public class PassengerServiceTest {
     @Test
     void testThatCustomerCanSearchForScheduledFlight() throws InvalidDateException {
         FlightSearchRequest searchRequest = buildFlightSearch();
-           List<FlightSchedule> foundFlight = passengerService.searchForFlight(searchRequest);
+        List<FlightSchedule> foundFlight = passengerService.searchForFlight(searchRequest);
         assertThat(foundFlight.size()).isGreaterThan(1);
     }
 
     private FlightSearchRequest buildFlightSearch() {
+
         FlightSearchRequest request = new FlightSearchRequest();
         request.setTakeOffYear("2023");
         request.setTakeOffMonth("December");
@@ -58,8 +59,7 @@ public class PassengerServiceTest {
     @Test
     @DisplayName("Find passenger by email")
     public void findPassengerByEmail() throws UserNotFoundException {
-        User foundUser = passengerService.findByEmail("Olakbjf");
-
+        User foundUser = passengerService.findByEmail("o.ugbochinedu@yahoo.com");
         assertThat(foundUser).isNotNull();
     }
 
@@ -68,7 +68,7 @@ public class PassengerServiceTest {
 //    void testThatPassengerCanBookFlight(){
 //        BookingRequest request = BuildBookingRequest();
 //        BookingResponse response = passengerService.bookFlight(request);
-//    }
+//   }
 
 //    private BookingRequest BuildBookingRequest() {
 //
